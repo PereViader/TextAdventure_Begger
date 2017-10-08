@@ -20,8 +20,5 @@ private:
 	const PlayerAction GetNextPlayerAction() const;
 	const vector<string> AskForInput() const;
 	vector<string> TokenizeString(const string&) const;
-
-
-
 };
 

@@ -2,35 +2,35 @@
 
 
 const PlayerAction PlayerActionFabric::GeneratePlayerAction(const vector<string>& playerInput) {
-	PlayerAction playerAction;
+	PlayerAction * playerAction = NULL;
 
 	string verb = playerInput[0];
 	vector<string> parameters(playerInput.begin() + 1, playerInput.end());
 	
 	if (verb.compare("look") == 0) {
-		playerAction.actionType = ActionType::Look;
+		playerAction = &PlayerAction(ActionType::Look, parameters);
 	}
 	else if (verb.compare("quit") == 0 || verb.compare("exit") == 0) {
-		playerAction.actionType = ActionType::Quit;
+		playerAction = &PlayerAction(ActionType::Quit, parameters);
 	}
 	else if (verb.compare("load") == 0) {
-		playerAction.actionType = ActionType::Load;
+		playerAction = &PlayerAction(ActionType::Load, parameters);
 	}
 	else if (verb.compare("save") == 0) {
-		playerAction.actionType = ActionType::Save;
+		playerAction = &PlayerAction(ActionType::Save, parameters);
 	}
 	else if (verb.compare("beg") == 0) {
-		playerAction.actionType = ActionType::Beg;
+		playerAction = &PlayerAction(ActionType::Beg, parameters);
 	}
 	else if (verb.compare("buy") == 0) {
-		playerAction.actionType = ActionType::Buy;
+		playerAction = &PlayerAction(ActionType::Buy, parameters);
 	}
 	else if (verb.compare("get") == 0 || verb.compare("take") == 0) {
-		playerAction.actionType = ActionType::Get;
+		playerAction = &PlayerAction(ActionType::Get, parameters);
 	}
-
-	if (playerAction.actionType != ActionType::Error)
-		playerAction.parameters = parameters;
+	else {
+		playerAction = &PlayerAction(ActionType::Error);
+	}
 	
-	return playerAction;
+	return *playerAction;
 }

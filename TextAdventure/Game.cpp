@@ -20,15 +20,14 @@ void Game::Execute() {
 	while (!hasGameEnded) {
 		hasGameEnded = ExecuteGameFrame();
 	}
+	cout << "Bye!" << endl;
 }
 
 bool Game::ExecuteGameFrame() {
 	bool hasGameEnded = false;
 	PlayerAction playerAction = GetNextPlayerAction();
 
-	cout << playerAction.actionType;
-
-	switch (playerAction.actionType) {
+	switch (playerAction.GetActionType()) {
 	case ActionType::Load:
 		break;
 	case ActionType::Save:
