@@ -8,10 +8,8 @@ using namespace std;
 enum ActionType {
 	Error,
 	Quit,
-	Save,
-	Load,
 	Beg,
-	Get,
+	Take,
 	Inventory,
 	Look,
 	Buy,

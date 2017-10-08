@@ -28,16 +28,12 @@ bool Game::ExecuteGameFrame() {
 	PlayerAction playerAction = GetNextPlayerAction();
 
 	switch (playerAction.GetActionType()) {
-	case ActionType::Load:
-		break;
-	case ActionType::Save:
-		break;
 	case ActionType::Quit:
 		hasGameEnded = true;
 		break;
 	case ActionType::Beg:
 		break;
-	case ActionType::Get:
+	case ActionType::Take:
 		break;
 	case ActionType::Inventory:
 		break;
