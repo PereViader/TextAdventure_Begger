@@ -1,16 +1,16 @@
 #include "PlayerAction.h"
 
-PlayerAction::PlayerAction(ActionType actionType, vector<string> parameters) {
+PlayerAction::PlayerAction(PlayerAction::Type actionType, vector<string> parameters) {
 	this->actionType = actionType;
 	this->parameters = parameters;
 }
 
-PlayerAction::PlayerAction(ActionType actionType) {
+PlayerAction::PlayerAction(PlayerAction::Type actionType) {
 	this->actionType = actionType;
 }
 
 
-ActionType PlayerAction::GetActionType() const {
+PlayerAction::Type PlayerAction::GetActionType() const {
 	return actionType;
 }
 

@@ -5,30 +5,32 @@
 
 using namespace std;
 
-enum ActionType {
-	Error,
-	Quit,
-	Beg,
-	Take,
-	Inventory,
-	Look,
-	Buy,
-};
+
 
 
 
 class PlayerAction
 {
-protected:
-	ActionType actionType;
-	vector<string> parameters;
-
 public:
-	PlayerAction(ActionType, vector<string>);
-	PlayerAction(ActionType);
+	enum Type {
+		Error,
+		Quit,
+		Beg,
+		Take,
+		Inventory,
+		Look,
+		Buy,
+	};
 
-	ActionType GetActionType() const;
+	PlayerAction(PlayerAction::Type, vector<string>);
+	PlayerAction(PlayerAction::Type);
+
+	PlayerAction::Type GetActionType() const;
 	vector<string> GetActionParameters() const;
+
+protected:
+	PlayerAction::Type actionType;
+	vector<string> parameters;
 
 
 };

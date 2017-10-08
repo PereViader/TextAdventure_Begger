@@ -28,20 +28,20 @@ bool Game::ExecuteGameFrame() {
 	PlayerAction playerAction = GetNextPlayerAction();
 
 	switch (playerAction.GetActionType()) {
-	case ActionType::Quit:
+	case PlayerAction::Type::Quit:
 		hasGameEnded = true;
 		break;
-	case ActionType::Beg:
+	case PlayerAction::Type::Beg:
 		break;
-	case ActionType::Take:
+	case PlayerAction::Type::Take:
 		break;
-	case ActionType::Inventory:
+	case PlayerAction::Type::Inventory:
 		break;
-	case ActionType::Look:
+	case PlayerAction::Type::Look:
 		break;
-	case ActionType::Buy:
+	case PlayerAction::Type::Buy:
 		break;
-	case ActionType::Error:
+	case PlayerAction::Type::Error:
 	default:
 		cout << "We could not understand you" << endl;
 	}

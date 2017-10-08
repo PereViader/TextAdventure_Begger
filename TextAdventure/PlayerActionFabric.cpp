@@ -8,25 +8,25 @@ const PlayerAction PlayerActionFabric::GeneratePlayerAction(const vector<string>
 	vector<string> parameters(playerInput.begin() + 1, playerInput.end());
 	
 	if (verb.compare("look") == 0) {
-		playerAction = &PlayerAction(ActionType::Look, parameters);
+		playerAction = &PlayerAction(PlayerAction::Type::Look, parameters);
 	}
 	else if (verb.compare("quit") == 0 || verb.compare("exit") == 0) {
-		playerAction = &PlayerAction(ActionType::Quit, parameters);
+		playerAction = &PlayerAction(PlayerAction::Type::Quit, parameters);
 	}
 	else if (verb.compare("beg") == 0) {
-		playerAction = &PlayerAction(ActionType::Beg, parameters);
+		playerAction = &PlayerAction(PlayerAction::Type::Beg, parameters);
 	}
 	else if (verb.compare("buy") == 0) {
-		playerAction = &PlayerAction(ActionType::Buy, parameters);
+		playerAction = &PlayerAction(PlayerAction::Type::Buy, parameters);
 	}
 	else if (verb.compare("inventory") == 0) {
-		playerAction = &PlayerAction(ActionType::Inventory, parameters);
+		playerAction = &PlayerAction(PlayerAction::Type::Inventory, parameters);
 	}
 	else if (verb.compare("get") == 0 || verb.compare("take") == 0) {
-		playerAction = &PlayerAction(ActionType::Take, parameters);
+		playerAction = &PlayerAction(PlayerAction::Type::Take, parameters);
 	}
 	else {
-		playerAction = &PlayerAction(ActionType::Error);
+		playerAction = &PlayerAction(PlayerAction::Type::Error);
 	}
 	
 	return *playerAction;
