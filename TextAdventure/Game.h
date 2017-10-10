@@ -3,9 +3,9 @@
 #include <vector>
 #include <string>
 
-#include "PlayerAction.h"
-#include "Player.h"
-#include "World.h"
+class PlayerAction;
+class Player;
+class World;
 
 using namespace std;
 
@@ -23,7 +23,7 @@ private:
 	const vector<string> AskForInput() const;
 	vector<string> TokenizeString(const string&) const;
 
-	Player player;
-	World world;
+	Player * player;
+	World * world;
 };
 

@@ -29,6 +29,7 @@ public:
 
 	PlayerAction::Type GetActionType() const;
 	vector<string> GetActionParameters() const;
+	string GetActionParametersAsString() const;
 
 protected:
 	PlayerAction::Type actionType;

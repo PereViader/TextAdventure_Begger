@@ -24,7 +24,7 @@ const PlayerAction PlayerActionFabric::GeneratePlayerAction(const vector<string>
 	}
 	else if (verb.compare("go") == 0) {
 		playerAction = &PlayerAction(PlayerAction::Type::Go, parameters);
-	
+	}
 	else if (verb.compare("eat") == 0) {
 		playerAction = &PlayerAction(PlayerAction::Type::Eat, parameters);
 	}

@@ -3,22 +3,26 @@
 #include <string>
 #include <vector>
 
-
 using namespace std;
-
-
 
 class Entity
 {
+
 public:
 	enum Type {
 		player,
 		item,
-		room
+		room,
+		exit
 	};
 
 	Entity();
 	virtual ~Entity();
+
+	void ChangeParentTo(Entity*);
+
+
+	virtual void Look() const = 0;
 
 	Entity::Type GetEntityType() const;
 	string GetName() const;
@@ -27,7 +31,7 @@ public:
 	vector<Entity*> FindAll(Entity::Type) const;
 	vector<Entity*> FindAll(const string&,Entity::Type) const;
 	Entity* Find(Entity::Type) const;
-	Entity* Find(const string&, Entity::Type);
+	Entity* Find(const string&, Entity::Type) const;
 
 
 protected:
@@ -35,6 +39,7 @@ protected:
 	string name;
 	string description;
 
-	vector<Entity*> associatedEntities;
+	Entity* parentEntity;
+	vector<Entity*> childEntities;
 };
 

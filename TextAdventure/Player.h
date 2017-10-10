@@ -1,11 +1,7 @@
-#pragma once
-
 #include "Creature.h"
-#include "Entity.h"
-#include "Exit.h"
-#include <vector>
-#include <string>
 
+class PlayerAction;
+class Room;
 
 class Player :
 	public Creature
@@ -14,6 +10,13 @@ public:
 	Player();
 	~Player();
 	
+	unsigned int GetMoney();
+	bool RemoveMoney(const unsigned int&);
+
+	// Inherited via Creature
+	virtual void Look() const override;
+
+	//Player Actions
 	void ActionBeg(const PlayerAction&);
 	void ActionLook(const PlayerAction&);
 	void ActionInventory(const PlayerAction&);
@@ -27,6 +30,5 @@ private:
 	Room * currentRoom;
 	unsigned int hunger;
 	unsigned int money;
-	
 };
 

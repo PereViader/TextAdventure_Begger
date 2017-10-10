@@ -1,6 +1,17 @@
 #include "Player.h"
 
+#include <iostream>
+#include <string>
 
+#include "PlayerAction.h"
+#include "Room.h"
+#include "Item.h"
+#include "Exit.h"
+#include "Shop.h"
+
+#include <assert.h>
+
+using namespace std;
 
 Player::Player()
 {
@@ -10,6 +21,22 @@ Player::Player()
 Player::~Player()
 {
 }
+
+unsigned int Player::GetMoney()
+{
+	return money;
+}
+
+bool Player::RemoveMoney(const unsigned int & amountToRemove)
+{
+	bool hasEnoughMoney = false;
+	if (money >= amountToRemove) {
+		hasEnoughMoney = true;
+		money -= amountToRemove;
+	}
+	return hasEnoughMoney;
+}
+
 
 void Player::ActionBeg(const PlayerAction& playerAction) {
 	vector<string> params = playerAction.GetActionParameters();
@@ -24,24 +51,24 @@ void Player::ActionBeg(const PlayerAction& playerAction) {
 void Player::ActionLook(const PlayerAction& playerAction){
 	vector<string> params = playerAction.GetActionParameters();
 	if (params.size() == 0) {
-		this -> currentRoom -> look();
+		currentRoom -> Look();
 	} else {
 		string itemName = "";
 		//TODO: join params into a single string
 		
-		Entity* item = currentRoom.Find(itemName,Entity::Type::Item);
-		if ( item != NULL ) {
-			item -> look();
+		Entity* item = currentRoom -> Find(itemName,Entity::Type::item);
+		if ( item != nullptr ) {
+			item -> Look();
 		}
 	}
 }
 
 void Player::ActionInventory(const PlayerAction& playerAction){
-	if (associatedEntities.size() == 0) {
+	if (childEntities.size() == 0) {
 		cout << "I have nothing left" << endl;
 	} else {
 		cout << "I found these..." << endl;
-		for (vector<Entity*>::const_iterator it = associatedEntities.begin(); it != associatedEntities.end(); ++it) {
+		for (vector<Entity*>::const_iterator it = childEntities.begin(); it != childEntities.end(); ++it) {
 			Entity * currentEntity = *it;
 			cout << currentEntity -> GetName() << endl;
 		}
@@ -49,19 +76,36 @@ void Player::ActionInventory(const PlayerAction& playerAction){
 }
 
 void Player::ActionBuy(const PlayerAction& playerAction){
-	
+	if (money == 0) {
+		cout << "I don't have any money left" << endl;
+		
+	} 
+	else if (currentRoom->GetRoomType() != Room::Shop) {
+		cout << "I can only buy things in a shop" << endl;
+	}
+	else {
+		Shop* shop = (Shop*)currentRoom;
+		string itemNameToBuy = playerAction.GetActionParametersAsString();
+		Item* item = (Item*)shop->Find(itemNameToBuy, Entity::Type::item);
+		if (item == nullptr) {
+			cout << "I can't buy that here" << endl;
+		}
+		else {
+
+			//TODO check if item
+		}
+	}
 }
 
 void Player::ActionTake(const PlayerAction& playerAction){
-	vector<string> params = playerAction.GetActionParameters();
-	if (params.size() == 0) {
+	if (playerAction.GetActionParameters().size() == 0) {
 		cout << "What should I take?" << endl;
 	} else {
-		string itemName = "";
-		//TODO: Join parameters to create one single string
-		Item* item = currentRoom -> Find(itemName,Entity::Type::Item);
-		if (item != NULL) {
-			//TODO: take item from room
+		string itemName = playerAction.GetActionParametersAsString();
+		Item* item = (Item*)currentRoom -> Find(itemName,Entity::Type::item);
+		if (item != nullptr) {
+			item->ChangeParentTo(this);
+			cout << "You took the " << item->GetName() << endl;
 		}
 	}
 }
@@ -76,8 +120,8 @@ void Player::ActionGo(const PlayerAction& playerAction){
 		vector<Exit*> exits = currentRoom -> GetExits();
 		for (vector<Exit*>::const_iterator it = exits.begin(); it != exits.end(); ++it) {
 			Exit* currentExit = *it;
-			if (currentExit.GetDirection().compare(direction)) {
-				// move player to the exit room
+			if (currentExit->GetExitDirection() == Exit::ParseDirectionString(direction)) {
+				this->currentRoom = currentExit->GetExitDestination();
 				break;
 			}
 		}
@@ -89,4 +133,8 @@ void Player::ActionGo(const PlayerAction& playerAction){
 
 void Player::ActionEat(const PlayerAction&) {
 	
+}
+
+void Player::Look() const
+{
 }
