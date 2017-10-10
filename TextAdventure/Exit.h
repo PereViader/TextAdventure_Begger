@@ -19,8 +19,7 @@ public:
 		West
 	};
 
-	Exit();
-	virtual ~Exit();
+	Exit(ExitDirection exitDirection, Room* source, Room * destination);
 
 	ExitDirection GetExitDirection() const;
 	Room* GetExitDestination() const;

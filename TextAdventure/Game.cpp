@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "Player.h"
 #include "PlayerActionFabric.h"
 
 Game::Game()
@@ -12,6 +13,8 @@ Game::Game()
 
 Game::~Game()
 {
+	Room * shop 
+
 }
 
 void Game::Execute() {
@@ -32,14 +35,19 @@ bool Game::ExecuteGameFrame() {
 		hasGameEnded = true;
 		break;
 	case PlayerAction::Type::Beg:
+		player->ActionBeg(playerAction);
 		break;
 	case PlayerAction::Type::Take:
+		player->ActionTake(playerAction);
 		break;
 	case PlayerAction::Type::Inventory:
+		player->ActionInventory(playerAction);
 		break;
 	case PlayerAction::Type::Look:
+		player->ActionLook(playerAction);
 		break;
 	case PlayerAction::Type::Buy:
+		player->ActionBuy(playerAction);
 		break;
 	case PlayerAction::Type::Error:
 	default:

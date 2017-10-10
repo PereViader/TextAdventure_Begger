@@ -14,7 +14,7 @@ public:
 	virtual ~Shop();
 
 	void AddItem(Item*, const int& price);
-	void SellItemToPlayer(Player*, Item*);
+	bool SellItemToPlayer(Player*, Item*);
 
 	bool GetPriceForItem(const Item *, int&) const;
 

@@ -2,14 +2,14 @@
 
 
 
-Exit::Exit()
+Exit::Exit(ExitDirection exitDirection, Room* source, Room * destination) : 
+	exitDirection(exitDirection),
+	source(source),
+	destination(destination)
 {
 }
 
 
-Exit::~Exit()
-{
-}
 
 Exit::ExitDirection Exit::GetExitDirection() const
 {

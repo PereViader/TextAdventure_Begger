@@ -7,7 +7,7 @@ class Player :
 	public Creature
 {
 public:
-	Player();
+	Player(Room* startingRoom);
 	~Player();
 	
 	unsigned int GetMoney();

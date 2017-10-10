@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Player::Player()
+Player::Player(Room* startingRoom) : currentRoom(startingRoom), hunger(100), money(0)
 {
 }
 
@@ -53,9 +53,7 @@ void Player::ActionLook(const PlayerAction& playerAction){
 	if (params.size() == 0) {
 		currentRoom -> Look();
 	} else {
-		string itemName = "";
-		//TODO: join params into a single string
-		
+		string itemName = playerAction.GetActionParametersAsString();
 		Entity* item = currentRoom -> Find(itemName,Entity::Type::item);
 		if ( item != nullptr ) {
 			item -> Look();
@@ -91,8 +89,13 @@ void Player::ActionBuy(const PlayerAction& playerAction){
 			cout << "I can't buy that here" << endl;
 		}
 		else {
-
-			//TODO check if item
+			bool playerBoughtItem = shop->SellItemToPlayer(this, item);
+			if (playerBoughtItem) {
+				cout << "You bought: " << itemNameToBuy << endl;
+			}
+			else {
+				cout << "You didn't have enough money to buy the item" << endl;
+			}
 		}
 	}
 }
@@ -137,4 +140,5 @@ void Player::ActionEat(const PlayerAction&) {
 
 void Player::Look() const
 {
+	cout << description << endl;
 }
