@@ -26,7 +26,7 @@ void Game::Execute() {
 bool Game::ExecuteGameFrame() {
 	bool hasGameEnded = false;
 	PlayerAction playerAction = GetNextPlayerAction();
-
+	
 	switch (playerAction.GetActionType()) {
 	case PlayerAction::Type::Quit:
 		hasGameEnded = true;

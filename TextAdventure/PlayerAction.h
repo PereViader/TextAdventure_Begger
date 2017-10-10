@@ -20,6 +20,8 @@ public:
 		Inventory,
 		Look,
 		Buy,
+		Go,
+		Eat,
 	};
 
 	PlayerAction(PlayerAction::Type, vector<string>);

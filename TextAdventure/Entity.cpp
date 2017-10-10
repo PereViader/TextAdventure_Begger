@@ -68,5 +68,5 @@ Entity * Entity::Find(const string & name, Entity::Type entityType)
 			return currentEntity;
 		}
 	}
-	return nullptr;
+	return NULL;
 }
