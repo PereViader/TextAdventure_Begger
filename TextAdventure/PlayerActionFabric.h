@@ -9,6 +9,7 @@ using namespace std;
 class PlayerActionFabric
 {
 public:
+	static const PlayerAction GenerateNullPlayerAction();
 	static const PlayerAction GeneratePlayerAction(const vector<string>& playerInput);
 };
 

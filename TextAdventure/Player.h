@@ -1,7 +1,9 @@
+#pragma once
+
 #include "Creature.h"
-#include "PlayerInput.h"
 
 class PlayerAction;
+class PlayerInput;
 class Room;
 
 
@@ -9,14 +11,12 @@ class Player :
 	public Creature
 {
 public:
-	Player(Room* startingRoom);
+	Player(string name, string description, Room* startingRoom);
 	~Player();
 	
 	unsigned int GetMoney();
 	bool RemoveMoney(const unsigned int&);
 
-	// Inherited via Creature
-	virtual void Look() const override;
 	virtual void Update() override;
 	
 	

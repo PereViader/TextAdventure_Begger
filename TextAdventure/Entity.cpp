@@ -1,14 +1,28 @@
 #include "Entity.h"
 
 #include <algorithm>
+#include <iostream>
 
+using namespace std;
 
-Entity::Entity()
+Entity::Entity(string name, string description, Entity::Type entityType) : name(name), description(description), entityType(entityType)
 {
 }
 
-
 Entity::~Entity()
+{
+}
+
+void Entity::Look() const
+{
+	cout << this->name << endl;
+	cout << this->description << endl;
+	for (vector<Entity*>::const_iterator it = childEntities.cbegin(); it != childEntities.cend(); it++) {
+		(*it)->Look();
+	}
+}
+
+void Entity::Update()
 {
 }
 
@@ -27,7 +41,7 @@ string Entity::GetDescription() const {
 void Entity::ChangeParentTo(Entity * newParent)
 {
 	if ( parentEntity != nullptr ) {
-		parentEntity -> Deatach(this);
+		parentEntity -> Deattach(this);
 	}
 	newParent -> Attach(this);
 }
@@ -80,10 +94,10 @@ Entity * Entity::Find(const string & name, Entity::Type entityType) const
 	return nullptr;
 }
 
-void Entity::Deatach(Entity* entity) {
+void Entity::Deattach(Entity* entity) {
 	if (entity != nullptr && entity -> parentEntity == this) {
 		childEntities.erase(remove(parentEntity->childEntities.begin(), parentEntity->childEntities.end(), entity));
-		entity.parentEntity = nullptr;
+		entity -> parentEntity = nullptr;
 	}
 }
 

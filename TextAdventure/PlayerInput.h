@@ -1,6 +1,7 @@
+#pragma once
 
-#includes <string>
-#includes <vector>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -9,13 +10,12 @@ class PlayerAction;
 class PlayerInput {
 
 public:
-	const PlayerAction GetPlayerAction() const;
+	const PlayerAction GetPlayerAction();
 
 private:
-	const vector<string> AskForInput();
 	vector<string> TokenizeString(const string&) const;
-	
-	string currentActionString;
-}
+	bool GatherNewInput(string& previousInput);
 
 	
+	string currentActionString;
+};

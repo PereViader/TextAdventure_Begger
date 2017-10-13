@@ -8,14 +8,24 @@
 #include "Item.h"
 #include "Exit.h"
 #include "Shop.h"
+#include "Food.h"
+#include "PlayerInput.h"
+#include "Creature.h"
+#include "Entity.h"
+
 
 #include <assert.h>
 
+
 using namespace std;
 
-Player::Player(Room* startingRoom) : currentRoom(startingRoom), hunger(100), money(0)
+Player::Player(string name, string description, Room* startingRoom) : 
+	currentRoom(startingRoom), 
+	hunger(100), 
+	money(0), 
+	playerInput(new PlayerInput()), 
+	Creature(name,description,Creature::Type::Player)
 {
-	playerInput = new PlayerInput();
 }
 
 
@@ -24,8 +34,8 @@ Player::~Player()
 	delete playerInput;
 }
 
-virtual void Player::Update() {
-	PlayerAction playerAction = playerInput.GetPlayerAction();
+void Player::Update() {
+	PlayerAction playerAction = playerInput -> GetPlayerAction();
 		
 	switch(playerAction.GetActionType()) {
 	case PlayerAction::Type::None:
@@ -89,7 +99,7 @@ void Player::ActionLook(const PlayerAction& playerAction){
 		currentRoom -> Look();
 	} else {
 		string itemName = playerAction.GetActionParametersAsString();
-		Entity* item = currentRoom -> Find(itemName,Entity::Type::item);
+		Entity* item = currentRoom -> Find(itemName,Entity::Type::Item);
 		if ( item != nullptr ) {
 			item -> Look();
 		}
@@ -113,13 +123,13 @@ void Player::ActionBuy(const PlayerAction& playerAction){
 		cout << "I don't have any money left" << endl;
 		
 	} 
-	else if (currentRoom->GetRoomType() != Room::Shop) {
+	else if (currentRoom->GetRoomType() != Room::Type::Shop) {
 		cout << "I can only buy things in a shop" << endl;
 	}
 	else {
 		Shop* shop = (Shop*)currentRoom;
 		string itemNameToBuy = playerAction.GetActionParametersAsString();
-		Item* item = (Item*)shop->Find(itemNameToBuy, Entity::Type::item);
+		Item* item = (Item*)shop->Find(itemNameToBuy, Entity::Type::Item);
 		if (item == nullptr) {
 			cout << "I can't buy that here" << endl;
 		}
@@ -140,7 +150,7 @@ void Player::ActionTake(const PlayerAction& playerAction){
 		cout << "What should I take?" << endl;
 	} else {
 		string itemName = playerAction.GetActionParametersAsString();
-		Item* item = (Item*)currentRoom -> Find(itemName,Entity::Type::item);
+		Item* item = (Item*)currentRoom -> Find(itemName,Entity::Type::Item);
 		if (item != nullptr) {
 			item->ChangeParentTo(this);
 			cout << "You took the " << item->GetName() << endl;
@@ -174,18 +184,18 @@ void Player::ActionEat(const PlayerAction& playerAction) {
 		cout << "What should I eat?" << endl;
 	} else {
 		string foodName = playerAction.GetActionParametersAsString();
-		Item* item = Find(foodName,Item::Type::Food);
-		if ( item == nullptr ) {
+		Entity* itemEntity = Find(foodName,Entity::Type::Item);
+		if (itemEntity == nullptr ) {
 			cout << "I don't have anything like that" << endl;
 		} else {
-			Food* food = (Food*)item;
-			hunger += food -> GetPower();
-			
+			Item * item = (Item*)itemEntity;
+			if (item->GetItemType() != Item::Type::Food) {
+				cout << "I can't eat that" << endl;
+			}
+			else {
+				Food* food = (Food*)item;
+				hunger += food->GetEnergy();
+			}
 		}
 	}
-}
-
-void Player::Look() const
-{
-	cout << description << endl;
 }

@@ -1,5 +1,9 @@
 #include "PlayerAction.h"
 
+#include <vector>
+#include <string>
+
+using namespace std;
 
 PlayerAction::PlayerAction(PlayerAction::Type actionType, vector<string> parameters) : actionType(actionType) , parameters(parameters){
 }
@@ -7,16 +11,15 @@ PlayerAction::PlayerAction(PlayerAction::Type actionType, vector<string> paramet
 PlayerAction::PlayerAction(PlayerAction::Type actionType) : actionType(actionType) {
 }
 
-
-PlayerAction::Type PlayerAction::GetActionType() const {
+const PlayerAction::Type PlayerAction::GetActionType() const {
 	return actionType;
 }
 
-vector<string> PlayerAction::GetActionParameters() const {
+const vector<string> PlayerAction::GetActionParameters() const {
 	return parameters;
 }
 
-string PlayerAction::GetActionParametersAsString() const
+const string PlayerAction::GetActionParametersAsString() const
 {
 	string paramString("");
 

@@ -1,10 +1,18 @@
 #pragma once
+
 #include "Room.h"
+
+#include <string>
+
+using namespace std;
+
 class Street :
 	public Room
 {
 public:
-	Street();
+	Street(string name, string description);
+
+	void Update() override;
 	~Street();
 };
 

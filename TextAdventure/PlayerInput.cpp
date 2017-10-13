@@ -10,7 +10,7 @@
 
 using namespace std;
 
-const PlayerAction PlayerInput::GetPlayerAction() const {
+const PlayerAction PlayerInput::GetPlayerAction() {
 	bool isCurrentActionReady = GatherNewInput(currentActionString);
 	if (isCurrentActionReady) {
 		vector<string> tokenizedAction = TokenizeString(currentActionString);
@@ -22,12 +22,13 @@ const PlayerAction PlayerInput::GetPlayerAction() const {
 }
 
 bool PlayerInput::GatherNewInput(string& previousInput) {
-	bool thereIsInputToGather = kbhit();
+	bool thereIsInputToGather = _kbhit() != 0;
 	bool isInputReady = false;
 	while(!isInputReady && thereIsInputToGather) {
 		char newInput = getchar();
+		cout << newInput;
 		previousInput += newInput;
-		thereIsInputToGather = hbhit();
+		thereIsInputToGather = _kbhit() != 0;
 		isInputReady = newInput == '\r';
 	}
 	//TODO bug check

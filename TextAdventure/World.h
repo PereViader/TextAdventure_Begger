@@ -1,9 +1,13 @@
 #pragma once
 
-#include "Player.h"
+#include "Globals.h"
+
 #include "Entity.h"
 
 #include <vector>
+
+
+using namespace std;
 
 class World
 {
@@ -11,7 +15,8 @@ public:
 	World();
 	virtual ~World();
 
-	vector<Entity*> gameEntities;
-	Player * player;
-};
+	Frame_Return Update();
 
+public:
+	vector<Entity*> gameEntities;
+};

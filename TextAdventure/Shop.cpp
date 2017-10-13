@@ -5,8 +5,12 @@
 
 #include <assert.h>
 #include <map>
+#include <string>
 
-Shop::Shop()
+using namespace std;
+
+Shop::Shop(string name, string description) : 
+	Room(name,description,Room::Type::Shop)
 {
 }
 

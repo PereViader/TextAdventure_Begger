@@ -5,7 +5,8 @@
 Exit::Exit(ExitDirection exitDirection, Room* source, Room * destination) : 
 	exitDirection(exitDirection),
 	source(source),
-	destination(destination)
+	destination(destination),
+	Entity(name, description, Entity::Type::Exit)
 {
 }
 

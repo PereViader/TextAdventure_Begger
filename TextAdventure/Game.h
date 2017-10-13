@@ -3,17 +3,15 @@
 #include <vector>
 #include <string>
 
+#include "Globals.h"
+
 class PlayerAction;
 class Player;
 class World;
 
 using namespace std;
 
-enum class Frame_Return {
-	Continue,
-	Stop,
-	Error
-}
+
 
 class Game
 {
@@ -26,7 +24,6 @@ private:
 	void PrintStartingMessage() const;
 	Frame_Return Update();
 
-	
 	Player * player;
 	World * world;
 	

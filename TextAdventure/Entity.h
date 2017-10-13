@@ -7,23 +7,22 @@ using namespace std;
 
 class Entity
 {
-
 public:
 	enum class Type {
-		player,
-		item,
-		room,
-		exit
+		Creature,
+		Item,
+		Room,
+		Exit
 	};
 
-	Entity();
 	virtual ~Entity();
 
+	virtual void Look() const;
+	virtual void Update();
+
 	void ChangeParentTo(Entity*);
-
-
-	virtual void Look() const = 0;
-	virtual void Update() = 0;
+	void Deattach(Entity*);
+	void Attach(Entity*);
 
 	Entity::Type GetEntityType() const;
 	string GetName() const;
@@ -33,9 +32,11 @@ public:
 	vector<Entity*> FindAll(const string&,Entity::Type) const;
 	Entity* Find(Entity::Type) const;
 	Entity* Find(const string&, Entity::Type) const;
-	void Deatach(Entity*);
+
 
 protected:
+	Entity(string name, string description, Entity::Type entityType);
+
 	Entity::Type entityType;
 	string name;
 	string description;

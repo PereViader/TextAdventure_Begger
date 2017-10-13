@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Room.h"
 
 #include <map>
@@ -10,7 +12,7 @@ class Shop :
 	public Room
 {
 public:
-	Shop();
+	Shop(string name, string description);
 	virtual ~Shop();
 
 	void AddItem(Item*, const int& price);

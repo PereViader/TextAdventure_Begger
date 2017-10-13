@@ -5,10 +5,6 @@
 
 using namespace std;
 
-
-
-
-
 class PlayerAction
 {
 public:
@@ -28,15 +24,13 @@ public:
 	PlayerAction(PlayerAction::Type, vector<string>);
 	PlayerAction(PlayerAction::Type);
 
-	PlayerAction::Type GetActionType() const;
-	vector<string> GetActionParameters() const;
-	string GetActionParametersAsString() const;
+	const PlayerAction::Type GetActionType() const;
+	const vector<string> GetActionParameters() const;
+	const string GetActionParametersAsString() const;
 
 protected:
-	PlayerAction::Type actionType;
-	vector<string> parameters;
-
-
+	const PlayerAction::Type actionType;
+	const vector<string> parameters;
 };
 
 

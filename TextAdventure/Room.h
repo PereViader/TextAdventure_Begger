@@ -1,7 +1,10 @@
 #pragma once
+
 #include "Entity.h"
 
 #include <vector>
+
+using namespace std;
 
 class Exit;
 
@@ -9,25 +12,19 @@ class Room :
 	public Entity
 {
 public:
-	enum Type {
+	enum class Type {
 		Error,
 		Shop,
 		Street
 	};
 
-	Room();
-	virtual ~Room();
+	const Room::Type GetRoomType() const;
+	const vector<Exit*> GetExits() const;
 
-	Room::Type GetRoomType() const;
-	vector<Exit*> GetExits() const;
-
-
-	// Inherited via Entity
-	virtual void Look() const override;
-
+protected:
+	Room(string name, string description, Room::Type roomType);
 
 private:
-
-	Room::Type roomType;
+	const Room::Type roomType;
 };
 
