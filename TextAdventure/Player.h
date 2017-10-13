@@ -1,7 +1,9 @@
 #include "Creature.h"
+#include "PlayerInput.h"
 
 class PlayerAction;
 class Room;
+
 
 class Player :
 	public Creature
@@ -15,7 +17,9 @@ public:
 
 	// Inherited via Creature
 	virtual void Look() const override;
-
+	virtual void Update() override;
+	
+	
 	//Player Actions
 	void ActionBeg(const PlayerAction&);
 	void ActionLook(const PlayerAction&);
@@ -30,5 +34,7 @@ private:
 	Room * currentRoom;
 	unsigned int hunger;
 	unsigned int money;
+	
+	PlayerInput * playerInput;
 };
 

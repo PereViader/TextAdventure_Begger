@@ -1,5 +1,8 @@
 #include "PlayerActionFabric.h"
 
+const PlayerAction PlayerActionFabric::GenerateNullPlayerAction() {
+	return PlayerAction(PlayerAction::Type::None);
+}
 
 const PlayerAction PlayerActionFabric::GeneratePlayerAction(const vector<string>& playerInput) {
 	PlayerAction * playerAction = NULL;

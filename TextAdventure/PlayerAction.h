@@ -12,7 +12,8 @@ using namespace std;
 class PlayerAction
 {
 public:
-	enum Type {
+	enum class Type {
+		None,
 		Error,
 		Quit,
 		Beg,

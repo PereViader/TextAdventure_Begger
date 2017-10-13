@@ -9,6 +9,12 @@ class World;
 
 using namespace std;
 
+enum class Frame_Return {
+	Continue,
+	Stop,
+	Error
+}
+
 class Game
 {
 public:
@@ -18,12 +24,12 @@ public:
 
 private:
 	void PrintStartingMessage() const;
-	bool ExecuteGameFrame();
-	const PlayerAction GetNextPlayerAction() const;
-	const vector<string> AskForInput() const;
-	vector<string> TokenizeString(const string&) const;
+	Frame_Return Update();
 
+	
 	Player * player;
 	World * world;
+	
+	bool hasGameEnded;
 };
 

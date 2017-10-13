@@ -9,7 +9,7 @@ class Entity
 {
 
 public:
-	enum Type {
+	enum class Type {
 		player,
 		item,
 		room,
@@ -23,6 +23,7 @@ public:
 
 
 	virtual void Look() const = 0;
+	virtual void Update() = 0;
 
 	Entity::Type GetEntityType() const;
 	string GetName() const;
@@ -32,7 +33,7 @@ public:
 	vector<Entity*> FindAll(const string&,Entity::Type) const;
 	Entity* Find(Entity::Type) const;
 	Entity* Find(const string&, Entity::Type) const;
-
+	void Deatach(Entity*);
 
 protected:
 	Entity::Type entityType;

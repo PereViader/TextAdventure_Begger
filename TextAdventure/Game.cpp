@@ -6,55 +6,27 @@
 #include "Player.h"
 #include "PlayerActionFabric.h"
 
-Game::Game()
+Game::Game() : hasGameEnded(false)
 {
 }
 
 
 Game::~Game()
 {
-	Room * shop 
-
 }
 
 void Game::Execute() {
 	PrintStartingMessage();
-	bool hasGameEnded = false;
-	while (!hasGameEnded) {
-		hasGameEnded = ExecuteGameFrame();
-	}
+
+	Frame_Return ret;
+	do {
+		ret = Update();
+	} while(ret == Frame_Return::Continue);
 	cout << "Bye!" << endl;
 }
 
-bool Game::ExecuteGameFrame() {
-	bool hasGameEnded = false;
-	PlayerAction playerAction = GetNextPlayerAction();
-	
-	switch (playerAction.GetActionType()) {
-	case PlayerAction::Type::Quit:
-		hasGameEnded = true;
-		break;
-	case PlayerAction::Type::Beg:
-		player->ActionBeg(playerAction);
-		break;
-	case PlayerAction::Type::Take:
-		player->ActionTake(playerAction);
-		break;
-	case PlayerAction::Type::Inventory:
-		player->ActionInventory(playerAction);
-		break;
-	case PlayerAction::Type::Look:
-		player->ActionLook(playerAction);
-		break;
-	case PlayerAction::Type::Buy:
-		player->ActionBuy(playerAction);
-		break;
-	case PlayerAction::Type::Error:
-	default:
-		cout << "We could not understand you" << endl;
-	}
-
-	return hasGameEnded;
+Frame_Return Game::Update() {
+	world.Update();
 }
 
 void Game::PrintStartingMessage() const {
@@ -63,37 +35,4 @@ void Game::PrintStartingMessage() const {
 	cout << "Have fun!" << endl;
 }
 
-const PlayerAction Game::GetNextPlayerAction() const {
-	vector<string> playerInput;
-	do {
-		playerInput = AskForInput();
-	} while (playerInput.size() == 0);
-	return PlayerActionFabric::GeneratePlayerAction(playerInput);
-}
 
-const vector<string> Game::AskForInput() const {
-	string playerInput;
-	cout << "> ";
-	getline(cin, playerInput);
-	return TokenizeString(playerInput);
-}
-
-vector<string> Game::TokenizeString(const string& s) const {
-	vector<string> tokens;
-	
-	char* workingString = _strdup(s.c_str());
-	char* token = NULL;
-	char* next_token = NULL;
-
-	char delimiters[] = " ";
-
-	token = strtok_s(workingString, delimiters, &next_token);
-	while (token) {
-		tokens.push_back(token);
-		token = strtok_s(NULL,delimiters, &next_token);
-	}
-
-	delete workingString;
-
-	return tokens;
-}

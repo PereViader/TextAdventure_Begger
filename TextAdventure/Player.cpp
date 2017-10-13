@@ -15,11 +15,46 @@ using namespace std;
 
 Player::Player(Room* startingRoom) : currentRoom(startingRoom), hunger(100), money(0)
 {
+	playerInput = new PlayerInput();
 }
 
 
 Player::~Player()
 {
+	delete playerInput;
+}
+
+virtual void Player::Update() {
+	PlayerAction playerAction = playerInput.GetPlayerAction();
+		
+	switch(playerAction.GetActionType()) {
+	case PlayerAction::Type::None:
+		break;
+	case PlayerAction::Type::Buy:
+		ActionBuy(playerAction);
+		break;
+	case PlayerAction::Type::Look:
+		ActionLook(playerAction);
+		break;
+	case PlayerAction::Type::Inventory:
+		ActionInventory(playerAction);
+		break;
+	case PlayerAction::Type::Beg:
+		ActionBeg(playerAction);
+		break;
+	case PlayerAction::Type::Eat:
+		ActionEat(playerAction);
+		break;
+	case PlayerAction::Type::Take:
+		ActionTake(playerAction);
+		break;
+	case PlayerAction::Type::Go:
+		ActionGo(playerAction);
+		break;
+	case PlayerAction::Type::Error:
+	default:
+		cout << "I don't know how to do that" << endl;
+	}
 }
 
 unsigned int Player::GetMoney()
@@ -134,8 +169,20 @@ void Player::ActionGo(const PlayerAction& playerAction){
 	}
 }
 
-void Player::ActionEat(const PlayerAction&) {
-	
+void Player::ActionEat(const PlayerAction& playerAction) {
+	if(playerAction.GetActionParameters().size() == 0) {
+		cout << "What should I eat?" << endl;
+	} else {
+		string foodName = playerAction.GetActionParametersAsString();
+		Item* item = Find(foodName,Item::Type::Food);
+		if ( item == nullptr ) {
+			cout << "I don't have anything like that" << endl;
+		} else {
+			Food* food = (Food*)item;
+			hunger += food -> GetPower();
+			
+		}
+	}
 }
 
 void Player::Look() const

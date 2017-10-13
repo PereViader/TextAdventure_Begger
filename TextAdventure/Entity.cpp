@@ -26,9 +26,10 @@ string Entity::GetDescription() const {
 
 void Entity::ChangeParentTo(Entity * newParent)
 {
-	parentEntity->childEntities.erase(remove(parentEntity->childEntities.begin(), parentEntity->childEntities.end(), this));
-	parentEntity = newParent;
-	newParent->childEntities.push_back(this);
+	if ( parentEntity != nullptr ) {
+		parentEntity -> Deatach(this);
+	}
+	newParent -> Attach(this);
 }
 
 vector<Entity*> Entity::FindAll(Entity::Type entityType) const
@@ -69,7 +70,7 @@ Entity * Entity::Find(Entity::Type entityType) const
 
 Entity * Entity::Find(const string & name, Entity::Type entityType) const
 {
-	for (vector<Entity*>::const_iterator it = childEntities.begin(); it != childEntities.end(); ++it) {
+	for (vector<Entity*>::const_iterator it = childEntities.cbegin(); it != childEntities.cend(); ++it) {
 		Entity * currentEntity = *it;
 		if (currentEntity->entityType == entityType && 
 			currentEntity->name.compare(name) == 0) {
@@ -77,4 +78,18 @@ Entity * Entity::Find(const string & name, Entity::Type entityType) const
 		}
 	}
 	return nullptr;
+}
+
+void Entity::Deatach(Entity* entity) {
+	if (entity != nullptr && entity -> parentEntity == this) {
+		childEntities.erase(remove(parentEntity->childEntities.begin(), parentEntity->childEntities.end(), entity));
+		entity.parentEntity = nullptr;
+	}
+}
+
+void Entity::Attach(Entity* entity) {
+	if (entity != nullptr) {
+		entity -> parentEntity = this;
+		childEntities.push_back(entity);
+	}
 }
