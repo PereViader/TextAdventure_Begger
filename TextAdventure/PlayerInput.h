@@ -10,7 +10,7 @@ class PlayerAction;
 class PlayerInput {
 
 public:
-	const PlayerAction GetPlayerAction();
+	const PlayerAction* GetPlayerAction();
 
 private:
 	vector<string> TokenizeString(const string&) const;
