@@ -11,8 +11,6 @@ class Street :
 {
 public:
 	Street(string name, string description);
-
-	void Update() override;
 	~Street();
 };
 

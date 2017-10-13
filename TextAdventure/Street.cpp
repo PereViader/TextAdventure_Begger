@@ -5,10 +5,6 @@ Street::Street(string name, string description) : Room(name,description,Room::Ty
 {
 }
 
-void Street::Update()
-{
-}
-
 Street::~Street()
 {
 }

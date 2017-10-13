@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "Globals.h"
+
 using namespace std;
 
 class Entity
@@ -18,7 +20,7 @@ public:
 	virtual ~Entity();
 
 	virtual void Look() const;
-	virtual void Update();
+	virtual Frame_Return Update();
 
 	void ChangeParentTo(Entity*);
 	void Deattach(Entity*);

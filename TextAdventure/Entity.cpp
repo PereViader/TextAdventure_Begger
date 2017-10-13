@@ -22,8 +22,9 @@ void Entity::Look() const
 	}
 }
 
-void Entity::Update()
+Frame_Return Entity::Update()
 {
+	return Frame_Return::Continue;
 }
 
 Entity::Type Entity::GetEntityType() const {
