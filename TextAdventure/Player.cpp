@@ -34,11 +34,15 @@ Player::~Player()
 	delete playerInput;
 }
 
-void Player::Update() {
-	PlayerAction playerAction = playerInput -> GetPlayerAction();
+Frame_Return Player::Update() {
+	Frame_Return frame_return = Frame_Return::Continue;
+	const PlayerAction* playerAction = playerInput -> GetPlayerAction();
 		
-	switch(playerAction.GetActionType()) {
+	switch(playerAction -> GetActionType()) {
 	case PlayerAction::Type::None:
+		break;
+	case PlayerAction::Type::Quit:
+		frame_return = Frame_Return::Stop;
 		break;
 	case PlayerAction::Type::Buy:
 		ActionBuy(playerAction);
@@ -65,6 +69,8 @@ void Player::Update() {
 	default:
 		cout << "I don't know how to do that" << endl;
 	}
+	delete playerAction;
+	return frame_return;
 }
 
 unsigned int Player::GetMoney()
@@ -83,8 +89,8 @@ bool Player::RemoveMoney(const unsigned int & amountToRemove)
 }
 
 
-void Player::ActionBeg(const PlayerAction& playerAction) {
-	vector<string> params = playerAction.GetActionParameters();
+void Player::ActionBeg(const PlayerAction* playerAction) {
+	vector<string> params = playerAction -> GetActionParameters();
 	if (params.size() > 0) {
 		cout << "It's embarrasing, I don't want to beg like that" << endl;
 		return;
@@ -93,12 +99,12 @@ void Player::ActionBeg(const PlayerAction& playerAction) {
 	// search room for npcs and such
 }
 
-void Player::ActionLook(const PlayerAction& playerAction){
-	vector<string> params = playerAction.GetActionParameters();
+void Player::ActionLook(const PlayerAction* playerAction){
+	vector<string> params = playerAction->GetActionParameters();
 	if (params.size() == 0) {
 		currentRoom -> Look();
 	} else {
-		string itemName = playerAction.GetActionParametersAsString();
+		string itemName = playerAction->GetActionParametersAsString();
 		Entity* item = currentRoom -> Find(itemName,Entity::Type::Item);
 		if ( item != nullptr ) {
 			item -> Look();
@@ -106,10 +112,15 @@ void Player::ActionLook(const PlayerAction& playerAction){
 	}
 }
 
-void Player::ActionInventory(const PlayerAction& playerAction){
-	if (childEntities.size() == 0) {
+void Player::ActionInventory(const PlayerAction* playerAction){
+	if (playerAction->GetActionParameters().size() > 0) {
+		cout << "I don't know how to do that with my inventory" << endl;
+	} 
+	else if (childEntities.size() == 0) 
+	{
 		cout << "I have nothing left" << endl;
-	} else {
+	} 
+	else {
 		cout << "I found these..." << endl;
 		for (vector<Entity*>::const_iterator it = childEntities.begin(); it != childEntities.end(); ++it) {
 			Entity * currentEntity = *it;
@@ -118,17 +129,16 @@ void Player::ActionInventory(const PlayerAction& playerAction){
 	}
 }
 
-void Player::ActionBuy(const PlayerAction& playerAction){
+void Player::ActionBuy(const PlayerAction* playerAction){
 	if (money == 0) {
 		cout << "I don't have any money left" << endl;
-		
 	} 
 	else if (currentRoom->GetRoomType() != Room::Type::Shop) {
 		cout << "I can only buy things in a shop" << endl;
 	}
 	else {
 		Shop* shop = (Shop*)currentRoom;
-		string itemNameToBuy = playerAction.GetActionParametersAsString();
+		string itemNameToBuy = playerAction->GetActionParametersAsString();
 		Item* item = (Item*)shop->Find(itemNameToBuy, Entity::Type::Item);
 		if (item == nullptr) {
 			cout << "I can't buy that here" << endl;
@@ -145,11 +155,11 @@ void Player::ActionBuy(const PlayerAction& playerAction){
 	}
 }
 
-void Player::ActionTake(const PlayerAction& playerAction){
-	if (playerAction.GetActionParameters().size() == 0) {
+void Player::ActionTake(const PlayerAction* playerAction){
+	if (playerAction->GetActionParameters().size() == 0) {
 		cout << "What should I take?" << endl;
 	} else {
-		string itemName = playerAction.GetActionParametersAsString();
+		string itemName = playerAction->GetActionParametersAsString();
 		Item* item = (Item*)currentRoom -> Find(itemName,Entity::Type::Item);
 		if (item != nullptr) {
 			item->ChangeParentTo(this);
@@ -158,8 +168,8 @@ void Player::ActionTake(const PlayerAction& playerAction){
 	}
 }
 
-void Player::ActionGo(const PlayerAction& playerAction){
-	vector<string> params = playerAction.GetActionParameters();
+void Player::ActionGo(const PlayerAction* playerAction){
+	vector<string> params = playerAction->GetActionParameters();
 	if (params.size() == 0) {
 		cout << "I should first decide where to go" << endl;
 	}
@@ -179,11 +189,11 @@ void Player::ActionGo(const PlayerAction& playerAction){
 	}
 }
 
-void Player::ActionEat(const PlayerAction& playerAction) {
-	if(playerAction.GetActionParameters().size() == 0) {
+void Player::ActionEat(const PlayerAction* playerAction) {
+	if(playerAction->GetActionParameters().size() == 0) {
 		cout << "What should I eat?" << endl;
 	} else {
-		string foodName = playerAction.GetActionParametersAsString();
+		string foodName = playerAction->GetActionParametersAsString();
 		Entity* itemEntity = Find(foodName,Entity::Type::Item);
 		if (itemEntity == nullptr ) {
 			cout << "I don't have anything like that" << endl;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Creature.h"
+#include "Globals.h"
 
 class PlayerAction;
 class PlayerInput;
@@ -17,17 +18,17 @@ public:
 	unsigned int GetMoney();
 	bool RemoveMoney(const unsigned int&);
 
-	virtual void Update() override;
+	virtual Frame_Return Update() override;
 	
 	
 	//Player Actions
-	void ActionBeg(const PlayerAction&);
-	void ActionLook(const PlayerAction&);
-	void ActionInventory(const PlayerAction&);
-	void ActionBuy(const PlayerAction&);
-	void ActionTake(const PlayerAction&);
-	void ActionGo(const PlayerAction&);
-	void ActionEat(const PlayerAction&);
+	void ActionBeg(const PlayerAction*);
+	void ActionLook(const PlayerAction*);
+	void ActionInventory(const PlayerAction*);
+	void ActionBuy(const PlayerAction*);
+	void ActionTake(const PlayerAction*);
+	void ActionGo(const PlayerAction*);
+	void ActionEat(const PlayerAction*);
 	
 private:
 
