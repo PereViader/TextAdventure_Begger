@@ -43,7 +43,7 @@ const string Entity::GetDescription() const {
 	return description;
 }
 
-const vector<Entity*> Entity::GetChilds() const
+vector<Entity*> Entity::GetChilds() const
 {
 	return childEntities;
 }

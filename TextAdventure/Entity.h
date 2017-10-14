@@ -30,7 +30,7 @@ public:
 	const Entity::Type GetEntityType() const;
 	const string GetName() const;
 	const string GetDescription() const;
-	const vector<Entity*> GetChilds() const;
+	vector<Entity*> GetChilds() const;
 	Entity* GetParent() const;
 
 	vector<Entity*> FindAll(Entity::Type) const;
