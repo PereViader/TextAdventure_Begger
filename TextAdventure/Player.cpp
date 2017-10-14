@@ -217,6 +217,9 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 			else {
 				Food* food = (Food*)item;
 				hunger += food->GetEnergy();
+				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
+				food->ChangeParentTo(nullptr);
+				delete food;
 			}
 		}
 	}
