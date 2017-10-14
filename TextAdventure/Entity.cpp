@@ -24,11 +24,7 @@ void Entity::Look() const
 
 Frame_Return Entity::Update()
 {
-	Frame_Return update_return = Frame_Return::Continue;
-	for (vector<Entity*>::iterator it = childEntities.begin(); update_return == Frame_Return::Continue && it != childEntities.end(); it++) {
-		update_return = (*it)->Update();
-	}
-	return update_return;
+	return Frame_Return::Continue;
 }
 
 const Entity::Type Entity::GetEntityType() const {

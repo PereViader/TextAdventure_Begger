@@ -35,9 +35,7 @@ Player::~Player()
 }
 
 Frame_Return Player::Update() {
-	Frame_Return frame_return = Creature::Update();
-
-	if (frame_return != Frame_Return::Continue) return frame_return;
+	Frame_Return frame_return = Frame_Return::Continue;
 
 	const PlayerAction* playerAction = playerInput -> GetPlayerAction();
 		

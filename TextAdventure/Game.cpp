@@ -5,6 +5,7 @@
 #include "Player.h"
 #include <vector>
 #include <string>
+#include <stack>
 
 #include "World.h"
 #include "WorldCreator.h"
@@ -34,11 +35,25 @@ void Game::Execute() {
 }
 
 Frame_Return Game::Update() {
-	return world -> Update();
+	Frame_Return update_return = Frame_Return::Continue;
+	stack<Entity*> entityStack;
+	entityStack.push(world);
+	while (update_return == Frame_Return::Continue && entityStack.size() > 0)
+	{
+		Entity* currentEntityToUpdate = entityStack.top();
+		entityStack.pop();
+		update_return = currentEntityToUpdate->Update();
+		vector<Entity*> entityChilds = currentEntityToUpdate->GetChilds();
+
+		for (vector<Entity*>::reverse_iterator it = entityChilds.rbegin(); it != entityChilds.rend(); ++it) {
+			entityStack.push(*it);
+		}
+	}
+	return update_return;
 }
 
 void Game::PrintStartingMessage() const {
-	cout << "Wellcome to zork or not!" << endl;
+	cout << "Welcome to zork or not!" << endl;
 	cout << "This is going to be your adventure" << endl;
 	cout << "Have fun!" << endl;
 }
