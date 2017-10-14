@@ -53,9 +53,10 @@ Frame_Return Game::Update() {
 }
 
 void Game::PrintStartingMessage() const {
-	cout << "Welcome to zork or not!" << endl;
 	cout << "This is going to be your adventure" << endl;
-	cout << "Have fun!" << endl;
+	cout << "You are a begger" << endl;
+	cout << "Survive" << endl;
+	cout << endl;
 }
 
 
