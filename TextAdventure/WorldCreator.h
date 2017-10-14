@@ -7,9 +7,5 @@ class WorldCreator
 {
 public:
 	static World* CreateGameWorld();
-
-private:
-
-	static Room* CreateMainStreet();
 };
 

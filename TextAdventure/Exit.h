@@ -12,7 +12,7 @@ class Exit :
 
 public:
 
-	enum ExitDirection {
+	enum class Direction {
 		Error,
 		North,
 		South,
@@ -20,15 +20,15 @@ public:
 		West
 	};
 
-	Exit(ExitDirection exitDirection, Room* source, Room * destination);
+	Exit(Direction exitDirection, Room* source, Room * destination);
 
-	ExitDirection GetExitDirection() const;
+	Direction GetExitDirection() const;
 	Room* GetExitDestination() const;
 	Room* GetExitSource() const;
 
-	static ExitDirection ParseDirectionString(const string&);
+	static Direction ParseDirectionString(const string&);
 private:
-	ExitDirection exitDirection;
+	Direction exitDirection;
 	Room * source;
 	Room * destination;
 };
