@@ -35,7 +35,10 @@ Player::~Player()
 }
 
 Frame_Return Player::Update() {
-	Frame_Return frame_return = Frame_Return::Continue;
+	Frame_Return frame_return = Creature::Update();
+
+	if (frame_return != Frame_Return::Continue) return frame_return;
+
 	const PlayerAction* playerAction = playerInput -> GetPlayerAction();
 		
 	switch(playerAction -> GetActionType()) {
@@ -106,8 +109,11 @@ void Player::ActionLook(const PlayerAction* playerAction){
 	} else {
 		string itemName = playerAction->GetActionParametersAsString();
 		Entity* item = currentRoom -> Find(itemName,Entity::Type::Item);
-		if ( item != nullptr ) {
-			item -> Look();
+		if ( item == nullptr ) {
+			cout << "There's nothing like that around here" << endl;
+		}
+		else {
+			item->Look();
 		}
 	}
 }

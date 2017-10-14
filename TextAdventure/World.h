@@ -9,14 +9,9 @@
 
 using namespace std;
 
-class World
+class World :
+	public Entity
 {
 public:
-	World();
-	virtual ~World();
-
-	Frame_Return Update();
-
-public:
-	vector<Entity*> gameEntities;
+	World(const string& name, const string& description);
 };

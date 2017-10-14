@@ -11,6 +11,7 @@ class Entity
 {
 public:
 	enum class Type {
+		World,
 		Creature,
 		Item,
 		Room,
@@ -23,25 +24,29 @@ public:
 	virtual Frame_Return Update();
 
 	void ChangeParentTo(Entity*);
-	void Deattach(Entity*);
-	void Attach(Entity*);
+	void DeattachChild(Entity*);
+	void AttachChild(Entity*);
 
-	Entity::Type GetEntityType() const;
-	string GetName() const;
-	string GetDescription() const;
+	const Entity::Type GetEntityType() const;
+	const string GetName() const;
+	const string GetDescription() const;
+	const vector<Entity*> GetChilds() const;
+	Entity* GetParent() const;
 
 	vector<Entity*> FindAll(Entity::Type) const;
+	vector<Entity*> FindAll(const string&) const;
 	vector<Entity*> FindAll(const string&,Entity::Type) const;
 	Entity* Find(Entity::Type) const;
+	Entity* Find(const string&) const;
 	Entity* Find(const string&, Entity::Type) const;
 
 
 protected:
 	Entity(string name, string description, Entity::Type entityType);
 
-	Entity::Type entityType;
-	string name;
-	string description;
+	const Entity::Type entityType;
+	const string name;
+	const string description;
 
 	Entity* parentEntity;
 	vector<Entity*> childEntities;

@@ -23,3 +23,18 @@ const vector<Exit*> Room::GetExits() const
 	}
 	return exits;
 }
+
+void Room::Look() const
+{
+	cout << this->name << endl;
+	cout << this->description << endl;
+	if (childEntities.size() == 0) {
+		cout << "There is nothing you can take around here" << endl;
+	}
+	else {
+		cout << "Stuff you can see around:" << endl;
+		for (vector<Entity*>::const_iterator it = childEntities.cbegin(); it != childEntities.cend(); it++) {
+			cout << (*it)->GetName() << endl;
+		}
+	}
+}

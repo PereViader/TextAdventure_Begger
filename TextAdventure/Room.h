@@ -20,6 +20,8 @@ public:
 
 	const Room::Type GetRoomType() const;
 	const vector<Exit*> GetExits() const;
+	
+	void Look() const override;
 
 protected:
 	Room(string name, string description, Room::Type roomType);

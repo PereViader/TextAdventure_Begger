@@ -15,7 +15,6 @@ const PlayerAction* PlayerInput::GetPlayerAction() {
 	if (isCurrentActionReady) {
 
 		vector<string> tokenizedAction = TokenizeString(currentActionString);
-		cout << "Read:" << currentActionString << endl;
 		currentActionString = "";
 		return PlayerActionFabric::GeneratePlayerAction(tokenizedAction);
 	}
@@ -41,6 +40,8 @@ bool PlayerInput::GatherNewInput(string& previousInput) {
 			cout << newInput;
 		}
 		else {
+			cout << endl;
+			cout << "----------------------" << endl;
 			isEndOfInput = true;
 		}
 	}

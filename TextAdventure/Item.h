@@ -13,6 +13,8 @@ public:
 
 	Item::Type GetItemType() const;
 
+	void Look() const override ;
+
 protected:	
 	Item(string name, string description, Item::Type itemType);
 
