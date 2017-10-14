@@ -182,12 +182,20 @@ void Player::ActionGo(const PlayerAction* playerAction){
 	else if (params.size() == 1){
 		string direction = params[0];
 		vector<Exit*> exits = currentRoom -> GetExits();
+		Exit* exitToTake = nullptr;
 		for (vector<Exit*>::const_iterator it = exits.begin(); it != exits.end(); ++it) {
 			Exit* currentExit = *it;
 			if (currentExit->GetExitDirection() == Exit::ParseDirectionString(direction)) {
-				this->currentRoom = currentExit->GetExitDestination();
+				exitToTake = currentExit;
 				break;
 			}
+		}
+		if (exitToTake == nullptr) {
+			cout << "I can't go that way" << endl;
+		}
+		else {
+			Room* destination = this->currentRoom = exitToTake->GetExitDestination();
+			currentRoom = destination;
 		}
 	} 
 	else {
