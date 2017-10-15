@@ -206,7 +206,7 @@ void Player::ActionGo(const PlayerAction* playerAction){
 	}
 }
 
-void Player::ActionThrow(const PlayerAction *playerAction)
+void Player::ActionThrow(const PlayerAction* playerAction) 
 {
 	if (playerAction->GetActionParameters().size() == 0) {
 		cout << "What should I throw away?" << endl;
@@ -217,7 +217,7 @@ void Player::ActionThrow(const PlayerAction *playerAction)
 		if (itemToThrow == nullptr)
 			cout << "I can't throw away something I don't have" << endl;
 		else {
-			itemToThrow->ChangeParentTo(currentRoom);
+			itemToThrow->AttackToParent(currentRoom);
 			cout << "I threw away the " << itemToThrow -> GetName() << endl;
 		}
 	}
@@ -240,7 +240,7 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 				Food* food = (Food*)item;
 				hunger += food->GetEnergy();
 				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
-				food->AttackToParent(nullptr);
+				food->DeatachFromParent();
 				delete food;
 			}
 		}
