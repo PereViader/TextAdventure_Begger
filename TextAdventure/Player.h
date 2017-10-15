@@ -30,6 +30,7 @@ public:
 	void ActionGo(const PlayerAction*);
 	void ActionThrow(const PlayerAction*);
 	void ActionEat(const PlayerAction*);
+	void ActionHunger(const PlayerAction*);
 	
 private:
 

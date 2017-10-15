@@ -19,6 +19,7 @@ public:
 		Look,
 		Buy,
 		Go,
+		Hunger,
 		Eat,
 	};
 

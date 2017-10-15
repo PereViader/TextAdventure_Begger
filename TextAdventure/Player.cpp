@@ -68,6 +68,10 @@ Frame_Return Player::Update() {
 		break;
 	case PlayerAction::Type::Throw:
 		ActionThrow(playerAction);
+		break;
+	case PlayerAction::Type::Hunger:
+		ActionHunger(playerAction);
+		break;
 	case PlayerAction::Type::Error:
 	default:
 		cout << "I don't know how to do that" << endl;
@@ -243,6 +247,43 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 				food->DeatachFromParent();
 				delete food;
 			}
+		}
+	}
+}
+
+void Player::ActionHunger(const PlayerAction * playerAction)
+{
+	if (playerAction->GetActionParameters().size() > 0) {
+		cout << "I don't know how to do that" << endl;
+	}
+	else {
+		assert(hunger > 0);
+		if (hunger >= 100) {
+			cout << "I couldn't be any more happy" << endl;
+		}
+		else if (hunger >= 80) {
+			cout << "I feel just fine. Time to get going" << endl;
+		}
+		else if (hunger >= 70) {
+			cout << "I am just fine" << endl;
+		}
+		else if (hunger >= 50) {
+			cout << "My stomach could be better" << endl;
+		} 
+		else if ( hunger >= 40) {
+			cout << "Time to eat" << endl;
+		}
+		else if (hunger >= 30) {
+			cout << "Food... where is it" << endl;
+		}
+		else if (hunger >= 20) {
+			cout << "I really need to eat" << endl;
+		}
+		else if (hunger >= 10) {
+			cout << "I feel like I am at the brink of death. Hunger fills me" << endl;
+		}
+		else if (hunger > 0) {
+			cout << "I can't take it any more. Bye." << endl;
 		}
 	}
 }
