@@ -66,6 +66,8 @@ Frame_Return Player::Update() {
 	case PlayerAction::Type::Go:
 		ActionGo(playerAction);
 		break;
+	case PlayerAction::Type::Throw:
+		ActionThrow(playerAction);
 	case PlayerAction::Type::Error:
 	default:
 		cout << "I don't know how to do that" << endl;
@@ -165,7 +167,10 @@ void Player::ActionTake(const PlayerAction* playerAction){
 	} else {
 		string itemName = playerAction->GetActionParametersAsString();
 		Item* item = (Item*)currentRoom -> Find(itemName,Entity::Type::Item);
-		if (item != nullptr) {
+		if (item == nullptr) {
+			cout << "You can't see that around here" << endl;
+		}
+		else {
 			item->AttackToParent(this);
 			cout << "You took the " << item->GetName() << endl;
 		}
@@ -198,6 +203,23 @@ void Player::ActionGo(const PlayerAction* playerAction){
 	} 
 	else {
 		cout << "I don't know how to go there" << endl;
+	}
+}
+
+void Player::ActionThrow(const PlayerAction *playerAction)
+{
+	if (playerAction->GetActionParameters().size() == 0) {
+		cout << "What should I throw away?" << endl;
+	}
+	else {
+		const string itemToThrowName = playerAction->GetActionParametersAsString();
+		Item* itemToThrow = (Item*)Find(itemToThrowName, Entity::Type::Item);
+		if (itemToThrow == nullptr)
+			cout << "I can't throw away something I don't have" << endl;
+		else {
+			itemToThrow->ChangeParentTo(currentRoom);
+			cout << "I threw away the " << itemToThrow -> GetName() << endl;
+		}
 	}
 }
 

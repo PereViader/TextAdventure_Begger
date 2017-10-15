@@ -28,6 +28,7 @@ public:
 	void ActionBuy(const PlayerAction*);
 	void ActionTake(const PlayerAction*);
 	void ActionGo(const PlayerAction*);
+	void ActionThrow(const PlayerAction*);
 	void ActionEat(const PlayerAction*);
 	
 private:

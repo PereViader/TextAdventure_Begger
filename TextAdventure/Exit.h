@@ -22,7 +22,8 @@ public:
 
 	Exit(Direction exitDirection, Room* source, Room * destination);
 
-	Direction GetExitDirection() const;
+	const string GetExitDirectionString() const;
+	const Direction GetExitDirection() const;
 	Room* GetExitDestination() const;
 	Room* GetExitSource() const;
 

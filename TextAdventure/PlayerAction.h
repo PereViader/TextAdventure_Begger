@@ -14,6 +14,7 @@ public:
 		Quit,
 		Beg,
 		Take,
+		Throw,
 		Inventory,
 		Look,
 		Buy,

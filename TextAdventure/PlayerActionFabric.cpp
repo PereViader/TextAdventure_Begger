@@ -34,6 +34,9 @@ const PlayerAction* PlayerActionFabric::GeneratePlayerAction(const vector<string
 	else if (verb.compare("get") == 0 || verb.compare("take") == 0) {
 		playerAction = new PlayerAction(PlayerAction::Type::Take, parameters);
 	}
+	else if (verb.compare("throw") == 0) {
+		playerAction = new PlayerAction(PlayerAction::Type::Throw, parameters);
+	}
 	else {
 		playerAction = new PlayerAction(PlayerAction::Type::Error);
 	}
