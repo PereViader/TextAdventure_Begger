@@ -20,8 +20,8 @@ World* WorldCreator::CreateGameWorld()
 
 	Room* allyWayStreet = CreateAllyWayStreet();
 
-	Exit* mainStreetNorthExit = new Exit(Exit::Direction::North, mainStreet, allyWayStreet);
-	Exit* allyWaySouthExit = new Exit(Exit::Direction::South, allyWayStreet, mainStreet);
+	Exit* mainStreetNorthExit = new Exit("Northen way", "The way north", Exit::Direction::North, mainStreet, allyWayStreet);
+	Exit* allyWaySouthExit = new Exit("Southern way", "The way south", Exit::Direction::South, allyWayStreet, mainStreet);
 
 	mainStreetNorthExit->AttackToParent(mainStreet);
 	allyWaySouthExit->AttackToParent(allyWayStreet);

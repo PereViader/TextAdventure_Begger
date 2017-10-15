@@ -20,7 +20,7 @@ public:
 		West
 	};
 
-	Exit(Direction exitDirection, Room* source, Room * destination);
+	Exit(const string& name, const string& description, Direction exitDirection, Room* source, Room * destination);
 
 	const string GetExitDirectionString() const;
 	const Direction GetExitDirection() const;

@@ -2,7 +2,7 @@
 
 
 
-Exit::Exit(Direction exitDirection, Room* source, Room * destination) : 
+Exit::Exit(const string& name, const string& description, Direction exitDirection, Room* source, Room * destination) : 
 	exitDirection(exitDirection),
 	source(source),
 	destination(destination),
@@ -14,7 +14,7 @@ Exit::Exit(Direction exitDirection, Room* source, Room * destination) :
 
 const string Exit::GetExitDirectionString() const
 {
-	string exitDirectionString = "";
+	string exitDirectionString;
 
 	switch (exitDirection)
 	{
@@ -32,6 +32,7 @@ const string Exit::GetExitDirectionString() const
 		break;
 	case Exit::Direction::Error:
 	default:
+		exitDirectionString = "";
 		break;
 	}
 	return exitDirectionString;
@@ -55,16 +56,16 @@ Room * Exit::GetExitSource() const
 Exit::Direction Exit::ParseDirectionString(const string & direction)
 {
 	Direction exitDirection;
-	if (direction.compare("north") == 0) {
+	if (direction == "north") {
 		exitDirection = Direction::North;
 	}
-	else if (direction.compare("south")) {
+	else if (direction == "south") {
 		exitDirection = Direction::South;
 	}
-	else if (direction.compare("east")) {
+	else if (direction == "east") {
 		exitDirection = Direction::East;
 	}
-	else if (direction.compare("west")) {
+	else if (direction == "west") {
 		exitDirection = Direction::West;
 	}
 	else {

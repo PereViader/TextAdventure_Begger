@@ -80,7 +80,7 @@ vector<Entity*> Entity::FindAll(const string & name) const
 	vector<Entity*> entities;
 	for (vector<Entity*>::const_iterator it = childEntities.begin(); it != childEntities.end(); ++it) {
 		Entity * currentEntity = *it;
-		if (currentEntity->name.compare(name) == 0){
+		if (currentEntity->name == name){
 			entities.push_back(currentEntity);
 		}
 	}
@@ -93,7 +93,7 @@ vector<Entity*> Entity::FindAll(const string & name, Entity::Type entityType) co
 	for (vector<Entity*>::const_iterator it = childEntities.begin(); it != childEntities.end(); ++it) {
 		Entity * currentEntity = *it;
 		if (currentEntity->entityType == entityType &&
-			currentEntity->name.compare(name) == 0) {
+			currentEntity->name == name) {
 			entities.push_back(currentEntity);
 		}
 	}
@@ -115,7 +115,7 @@ Entity * Entity::Find(const string & name) const
 {
 	for (vector<Entity*>::const_iterator it = childEntities.cbegin(); it != childEntities.cend(); ++it) {
 		Entity * currentEntity = *it;
-		if (currentEntity->name.compare(name) == 0) {
+		if (currentEntity->name == name) {
 			return currentEntity;
 		}
 	}
@@ -127,7 +127,7 @@ Entity * Entity::Find(const string & name, Entity::Type entityType) const
 	for (vector<Entity*>::const_iterator it = childEntities.cbegin(); it != childEntities.cend(); ++it) {
 		Entity * currentEntity = *it;
 		if (currentEntity->entityType == entityType && 
-			currentEntity->name.compare(name) == 0) {
+			currentEntity->name == name) {
 			return currentEntity;
 		}
 	}
