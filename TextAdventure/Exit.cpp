@@ -12,7 +12,32 @@ Exit::Exit(Direction exitDirection, Room* source, Room * destination) :
 
 
 
-Exit::Direction Exit::GetExitDirection() const
+const string Exit::GetExitDirectionString() const
+{
+	string exitDirectionString = "";
+
+	switch (exitDirection)
+	{
+	case Exit::Direction::North:
+		exitDirectionString = "north";
+		break;
+	case Exit::Direction::South:
+		exitDirectionString = "south";
+		break;
+	case Exit::Direction::East:
+		exitDirectionString = "east";
+		break;
+	case Exit::Direction::West:
+		exitDirectionString = "west";
+		break;
+	case Exit::Direction::Error:
+	default:
+		break;
+	}
+	return exitDirectionString;
+}
+
+const Exit::Direction Exit::GetExitDirection() const
 {
 	return this->exitDirection;
 }
