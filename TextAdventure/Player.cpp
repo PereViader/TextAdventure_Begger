@@ -166,7 +166,7 @@ void Player::ActionTake(const PlayerAction* playerAction){
 		string itemName = playerAction->GetActionParametersAsString();
 		Item* item = (Item*)currentRoom -> Find(itemName,Entity::Type::Item);
 		if (item != nullptr) {
-			item->ChangeParentTo(this);
+			item->AttackToParent(this);
 			cout << "You took the " << item->GetName() << endl;
 		}
 	}
@@ -218,7 +218,7 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 				Food* food = (Food*)item;
 				hunger += food->GetEnergy();
 				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
-				food->ChangeParentTo(nullptr);
+				food->AttackToParent(nullptr);
 				delete food;
 			}
 		}

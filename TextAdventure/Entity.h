@@ -23,7 +23,8 @@ public:
 	virtual void Look() const;
 	virtual Frame_Return Update();
 
-	void ChangeParentTo(Entity*);
+	void AttackToParent(Entity*);
+	void DeatachFromParent();
 	void DeattachChild(Entity*);
 	void AttachChild(Entity*);
 

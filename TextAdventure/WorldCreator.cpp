@@ -23,8 +23,8 @@ World* WorldCreator::CreateGameWorld()
 	Exit* mainStreetNorthExit = new Exit(Exit::Direction::North, mainStreet, allyWayStreet);
 	Exit* allyWaySouthExit = new Exit(Exit::Direction::South, allyWayStreet, mainStreet);
 
-	mainStreetNorthExit->ChangeParentTo(mainStreet);
-	allyWaySouthExit->ChangeParentTo(allyWayStreet);
+	mainStreetNorthExit->AttackToParent(mainStreet);
+	allyWaySouthExit->AttackToParent(allyWayStreet);
 
 	world->AttachChild(player);
 	world->AttachChild(mainStreet);

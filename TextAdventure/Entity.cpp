@@ -49,13 +49,18 @@ Entity * Entity::GetParent() const
 	return parentEntity;
 }
 
-void Entity::ChangeParentTo(Entity * newParent)
+void Entity::AttackToParent(Entity * newParent)
 {
-	if ( parentEntity != nullptr )
-		parentEntity -> DeattachChild(this);
+	DeatachFromParent();
 	
 	if (newParent != nullptr)
 		newParent -> AttachChild(this);
+}
+
+void Entity::DeatachFromParent()
+{
+	if (parentEntity != nullptr)
+		parentEntity->DeattachChild(this);
 }
 
 vector<Entity*> Entity::FindAll(Entity::Type entityType) const
