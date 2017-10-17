@@ -9,6 +9,7 @@
 
 #include "World.h"
 #include "WorldCreator.h"
+#include "Time.h"
 
 using namespace std;
 
@@ -26,9 +27,9 @@ Game::~Game()
 
 void Game::Execute() {
 	PrintStartingMessage();
-
 	Frame_Return ret;
 	do {
+		Time::UpdateClock();
 		ret = Update();
 	} while(ret == Frame_Return::Continue);
 	cout << "Bye!" << endl;

@@ -16,7 +16,7 @@ public:
 	~Player();
 	
 	unsigned int GetMoney();
-	bool RemoveMoney(const unsigned int&);
+	bool RemoveMoney(const int&);
 
 	virtual Frame_Return Update() override;
 	
@@ -33,10 +33,14 @@ public:
 	void ActionHunger(const PlayerAction*);
 	
 private:
+	void UpdateHunger();
 
+private:
 	Room * currentRoom;
-	unsigned int hunger;
-	unsigned int money;
+	double hunger;
+	int money;
+
+	float hungerConsumptionPerSecond;
 	
 	PlayerInput * playerInput;
 };

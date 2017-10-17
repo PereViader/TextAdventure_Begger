@@ -34,6 +34,7 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Street.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldCreator.cpp" />
   </ItemGroup>
@@ -53,6 +54,7 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Street.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldCreator.h" />
   </ItemGroup>

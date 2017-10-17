@@ -12,6 +12,7 @@
 #include "PlayerInput.h"
 #include "Creature.h"
 #include "Entity.h"
+#include "Time.h"
 
 
 #include <assert.h>
@@ -19,10 +20,11 @@
 
 using namespace std;
 
-Player::Player(string name, string description, Room* startingRoom) : 
-	currentRoom(startingRoom), 
-	hunger(100), 
-	money(0), 
+Player::Player(string name, string description, Room* startingRoom) :
+	currentRoom(startingRoom),
+	hunger(100),
+	money(0),
+	hungerConsumptionPerSecond(1),
 	playerInput(new PlayerInput()), 
 	Creature(name,description,Creature::Type::Player)
 {
@@ -35,6 +37,8 @@ Player::~Player()
 }
 
 Frame_Return Player::Update() {
+	UpdateHunger();
+
 	Frame_Return frame_return = Frame_Return::Continue;
 
 	const PlayerAction* playerAction = playerInput -> GetPlayerAction();
@@ -80,12 +84,23 @@ Frame_Return Player::Update() {
 	return frame_return;
 }
 
+void Player::UpdateHunger()
+{
+	hunger -= Time::GetDeltaTime() * hungerConsumptionPerSecond;
+	cout << hunger << endl;
+	if (hunger < 0) {
+		hunger = 0;
+		cout << endl << endl << "You died of hunger" << endl;
+
+	}
+}
+
 unsigned int Player::GetMoney()
 {
 	return money;
 }
 
-bool Player::RemoveMoney(const unsigned int & amountToRemove)
+bool Player::RemoveMoney(const int & amountToRemove)
 {
 	bool hasEnoughMoney = false;
 	if (money >= amountToRemove) {
@@ -245,7 +260,7 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 				hunger += food->GetEnergy();
 				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
 				food->DeatachFromParent();
-				delete food;
+				delete food; 
 			}
 		}
 	}

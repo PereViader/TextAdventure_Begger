@@ -11,8 +11,6 @@ class World;
 
 using namespace std;
 
-
-
 class Game
 {
 public:
