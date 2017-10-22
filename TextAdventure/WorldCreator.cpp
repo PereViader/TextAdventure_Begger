@@ -33,14 +33,14 @@ World* WorldCreator::CreateGameWorld()
 }
 
 Room* CreateMainStreet() {
-	Street * street = new Street("Main Street","Where everybody walks and you live");
+	Street * street = new Street("Main Street","Where everybody walks and you live",0.25f);
 	Object * tire = new Object("tire", "A tire left by someone on the side of the street");
 	street->AttachChild(tire);
 	return street;
 }
 
 Room* CreateAllyWayStreet() {
-	Street * street = new Street("Ally way", "A small allyway where I can stay to relax. There is usually nobody around here");
+	Street * street = new Street("Ally way", "A small allyway where I can stay to relax. There is usually nobody around here", 0.0f);
 	Food * can = new Food("can", "A can of food in preserve",5);
 	Object * backpack = new Object("backpack", "My old backpack. Very useful for storing air");
 	street->AttachChild(can);

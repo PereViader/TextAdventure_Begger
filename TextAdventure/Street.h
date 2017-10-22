@@ -10,7 +10,12 @@ class Street :
 	public Room
 {
 public:
-	Street(string name, string description);
+	Street(string name, string description, float playerBegSuccessRate);
 	~Street();
+
+	float GetPlayerBegSuccessRate() const;
+
+public:
+	float playerBegSuccessRate;
 };
 

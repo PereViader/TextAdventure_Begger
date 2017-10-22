@@ -13,6 +13,9 @@
 #include "Creature.h"
 #include "Entity.h"
 #include "Time.h"
+#include "Street.h"
+
+#include <stdlib.h>
 
 
 #include <assert.h>
@@ -27,6 +30,7 @@ Player::Player(string name, string description, Room* startingRoom) :
 	playerInput(new PlayerInput()), 
 	Creature(name, description, startingRoom, Creature::Type::Player)
 {
+	srand(0); // set seed for debugging purposes
 }
 
 
@@ -117,9 +121,20 @@ void Player::ActionBeg(const PlayerAction* playerAction) {
 	if (params.size() > 0) {
 		cout << "It's embarrasing, I don't want to beg like that" << endl;
 		return;
-	} 
+	}
+	else if (GetCurrentRoom()->GetRoomType() == Room::Type::Street) {
+		Street* street = (Street*)GetCurrentRoom();
+		float randomValue = ((float)(rand() % 101)) / 100.0f;
+		bool hasSucceded = randomValue <= street->GetPlayerBegSuccessRate();
+		if (hasSucceded) {
+			money += 1;
+			cout << "A kind and gave you a coin" << endl;
+		}
+		else {
+			cout << "They ignored you" << endl;
+		}
+	}
 	
-	// search room for npcs and such
 }
 
 void Player::ActionLook(const PlayerAction* playerAction){
@@ -168,7 +183,7 @@ void Player::ActionInventory(const PlayerAction* playerAction){
 void Player::ActionBuy(const PlayerAction* playerAction){
 	if (money == 0) {
 		cout << "I don't have any money left" << endl;
-	} 
+	}
 	else if (GetCurrentRoom()->GetRoomType() != Room::Type::Shop) {
 		cout << "I can only buy things in a shop" << endl;
 	}
