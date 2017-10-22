@@ -131,7 +131,7 @@ void Player::ActionBeg(const PlayerAction* playerAction) {
 		bool hasSucceded = randomValue <= street->GetPlayerBegSuccessRate();
 		if (hasSucceded) {
 			money += 1;
-			cout << "A kind and gave you a coin" << endl;
+			cout << "A kind person gave you a coin" << endl;
 		}
 		else {
 			cout << "They ignored you" << endl;

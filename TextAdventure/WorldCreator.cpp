@@ -6,9 +6,11 @@
 #include "Food.h"
 #include "Player.h"
 #include "Exit.h"
+#include "Shop.h"
 
 Room* CreateMainStreet();
 Room* CreateAllyWayStreet();
+Room* CreateHiddenShop();
 
 
 
@@ -19,15 +21,24 @@ World* WorldCreator::CreateGameWorld()
 	Player * player = new Player("Player", "Lonely person", mainStreet);
 
 	Room* allyWayStreet = CreateAllyWayStreet();
+	Room* hiddenShop = CreateHiddenShop();
 
 	Exit* mainStreetNorthExit = new Exit("Northen way", "The way north", Exit::Direction::North, mainStreet, allyWayStreet);
 	Exit* allyWaySouthExit = new Exit("Southern way", "The way south", Exit::Direction::South, allyWayStreet, mainStreet);
+	
+	Exit* allyWayEastExit = new Exit("Eastern way", "There's something this way", Exit::Direction::East, allyWayStreet, hiddenShop);
+	Exit* hiddenShopWestExit = new Exit("Western exit", "The way back to the street", Exit::Direction::West, hiddenShop, allyWayStreet);
 
 	mainStreetNorthExit->AttachToParent(mainStreet);
 	allyWaySouthExit->AttachToParent(allyWayStreet);
 
+	allyWayEastExit->AttachToParent(allyWayStreet);
+	hiddenShopWestExit->AttachToParent(hiddenShop);
+
+
 	world->AttachChild(mainStreet);
 	world->AttachChild(allyWayStreet);
+	world->AttachChild(hiddenShop);
 
 	return world;
 }
@@ -46,4 +57,11 @@ Room* CreateAllyWayStreet() {
 	street->AttachChild(can);
 	street->AttachChild(backpack);
 	return street;
+}
+
+Room* CreateHiddenShop() {
+	Shop* shop = new Shop("HiddenShop", "A place for us tu buy");
+	Item* smallCan = new Food("small can", "Something to eat of unknown procedence", 5);
+	shop->AddItem(smallCan, 3);
+	return shop;
 }
