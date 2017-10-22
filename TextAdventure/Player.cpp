@@ -30,7 +30,7 @@ Player::Player(string name, string description, Room* startingRoom) :
 	playerInput(new PlayerInput()), 
 	Creature(name, description, startingRoom, Creature::Type::Player)
 {
-	srand(0); // set seed for debugging purposes
+	srand(6); // set seed for debugging purposes
 }
 
 
