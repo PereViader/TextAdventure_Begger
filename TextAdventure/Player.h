@@ -31,6 +31,7 @@ public:
 	void ActionThrow(const PlayerAction*);
 	void ActionEat(const PlayerAction*);
 	void ActionHunger(const PlayerAction*);
+	void ActionMoney(const PlayerAction*);
 	
 private:
 	Frame_Return UpdateHunger();

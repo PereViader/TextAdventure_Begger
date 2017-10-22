@@ -40,6 +40,9 @@ const PlayerAction* PlayerActionFabric::GeneratePlayerAction(const vector<string
 	else if (verb == "hunger") {
 		playerAction = new PlayerAction(PlayerAction::Type::Hunger, parameters);
 	}
+	else if (verb == "money") {
+		playerAction = new PlayerAction(PlayerAction::Type::Money, parameters);
+	}
 	else {
 		playerAction = new PlayerAction(PlayerAction::Type::Error);
 	}

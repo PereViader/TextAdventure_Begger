@@ -80,6 +80,9 @@ Frame_Return Player::Update() {
 	case PlayerAction::Type::Hunger:
 		ActionHunger(playerAction);
 		break;
+	case PlayerAction::Type::Money:
+		ActionMoney(playerAction);
+		break;
 	case PlayerAction::Type::Error:
 	default:
 		cout << "I don't know how to do that" << endl;
@@ -329,5 +332,18 @@ void Player::ActionHunger(const PlayerAction * playerAction)
 		}
 
 		cout << "My life total is " << hunger << "/100" << endl;
+	}
+}
+
+void Player::ActionMoney(const PlayerAction * playerAction)
+{
+	if (playerAction->GetActionParameters().size() > 0) {
+		cout << "I don't know how to do that" << endl;
+	}
+	else {
+		if (money == 0)
+			cout << "I don't have any money" << endl;
+		else
+			cout << "I have " << money << " coins" << endl;
 	}
 }

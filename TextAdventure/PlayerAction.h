@@ -21,6 +21,7 @@ public:
 		Go,
 		Hunger,
 		Eat,
+		Money,
 	};
 
 	PlayerAction(PlayerAction::Type, vector<string>);
