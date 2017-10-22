@@ -49,7 +49,7 @@ Entity * Entity::GetParent() const
 	return parentEntity;
 }
 
-void Entity::AttackToParent(Entity * newParent)
+void Entity::AttachToParent(Entity * newParent)
 {
 	DeatachFromParent();
 	

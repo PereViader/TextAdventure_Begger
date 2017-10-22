@@ -22,7 +22,6 @@ private:
 	void PrintStartingMessage() const;
 	Frame_Return Update();
 
-	Player * player;
 	World * world;
 	
 	bool hasGameEnded;

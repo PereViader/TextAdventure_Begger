@@ -33,15 +33,14 @@ public:
 	void ActionHunger(const PlayerAction*);
 	
 private:
-	void UpdateHunger();
+	Frame_Return UpdateHunger();
 
 private:
-	Room * currentRoom;
-	double hunger;
+	PlayerInput * playerInput;
+
 	int money;
 
+	float hunger;
 	float hungerConsumptionPerSecond;
-	
-	PlayerInput * playerInput;
 };
 

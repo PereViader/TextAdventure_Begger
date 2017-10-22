@@ -16,7 +16,6 @@ using namespace std;
 Game::Game() : hasGameEnded(false)
 {
 	world = WorldCreator::CreateGameWorld();
-	player = (Player*)world->GetChilds().at(0);
 }
 
 

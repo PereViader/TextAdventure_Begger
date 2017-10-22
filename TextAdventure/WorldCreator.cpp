@@ -23,10 +23,9 @@ World* WorldCreator::CreateGameWorld()
 	Exit* mainStreetNorthExit = new Exit("Northen way", "The way north", Exit::Direction::North, mainStreet, allyWayStreet);
 	Exit* allyWaySouthExit = new Exit("Southern way", "The way south", Exit::Direction::South, allyWayStreet, mainStreet);
 
-	mainStreetNorthExit->AttackToParent(mainStreet);
-	allyWaySouthExit->AttackToParent(allyWayStreet);
+	mainStreetNorthExit->AttachToParent(mainStreet);
+	allyWaySouthExit->AttachToParent(allyWayStreet);
 
-	world->AttachChild(player);
 	world->AttachChild(mainStreet);
 	world->AttachChild(allyWayStreet);
 
@@ -35,14 +34,16 @@ World* WorldCreator::CreateGameWorld()
 
 Room* CreateMainStreet() {
 	Street * street = new Street("Main Street","Where everybody walks and you live");
-	Object * tire = new Object("Tire", "A tire left by someone on the side of the street");
+	Object * tire = new Object("tire", "A tire left by someone on the side of the street");
 	street->AttachChild(tire);
 	return street;
 }
 
 Room* CreateAllyWayStreet() {
 	Street * street = new Street("Ally way", "A small allyway where I can stay to relax. There is usually nobody around here");
-	Food * can = new Food("Can", "A can of food in preserve",5);
+	Food * can = new Food("can", "A can of food in preserve",5);
+	Object * backpack = new Object("backpack", "My old backpack. Very useful for storing air");
 	street->AttachChild(can);
+	street->AttachChild(backpack);
 	return street;
 }

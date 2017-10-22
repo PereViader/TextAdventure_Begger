@@ -7,10 +7,10 @@ class Time
 public:
 	static void Reset();
 	static void UpdateClock();
-	static double GetDeltaTime();
+	static float GetDeltaTime();
 	
 private:
 	static clock_t previousTime;
-	static double deltaTime;
+	static float deltaTime;
 };
 

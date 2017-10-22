@@ -1,7 +1,7 @@
 #include "Time.h"
 #include <iostream>
 
-double Time::deltaTime = 0;
+float Time::deltaTime = 0;
 clock_t Time::previousTime = clock();
 
 void Time::Reset()
@@ -13,11 +13,11 @@ void Time::Reset()
 void Time::UpdateClock()
 {
 	clock_t presentTime = clock();
-	deltaTime = (double)(presentTime - previousTime) / CLOCKS_PER_SEC;
+	deltaTime = (float)(presentTime - previousTime) / CLOCKS_PER_SEC;
 	previousTime = presentTime;
 }
 
-double Time::GetDeltaTime()
+float Time::GetDeltaTime()
 {
 	return deltaTime;
 }

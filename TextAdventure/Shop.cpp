@@ -20,7 +20,8 @@ Shop::~Shop()
 }
 
 void Shop::AddItem(Item* item, const int& price) {
-	item->AttackToParent(this);
+	assert(item);
+	item->AttachToParent(this);
 	itemCost[item] = price;
 }
 
@@ -39,7 +40,7 @@ bool Shop::SellItemToPlayer(Player* player, Item* item) {
 	if (shopHasItem) {
 		if (player->RemoveMoney(itemPrice)) {
 			itemWasBought = true;
-			item->AttackToParent(player);
+			item->AttachToParent(player);
 			itemCost.erase(item);
 		}
 	}
