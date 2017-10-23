@@ -55,8 +55,9 @@ Room* CreateAllyWayStreet() {
 	Street * street = new Street("Ally way", "A small allyway where I can stay to relax. There is usually nobody around here", 0.0f);
 	ItemContainer * backpack = new ItemContainer("backpack", "My old backpack. Very useful for storing air");
 	Food * can = new Food("can", "A can of food in preserve", 5);
-	backpack->AttachChild(can);
 	Object * rubbish = new Object("rubbish", "Some random stuff");
+	backpack->AddItem(rubbish);
+	backpack->AddItem(can);
 	street->AttachChild(backpack);
 	return street;
 }

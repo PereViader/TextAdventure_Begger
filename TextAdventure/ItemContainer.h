@@ -14,5 +14,7 @@ public:
 
 	const vector<Item*> GetItemsInside() const;
 	void AddItem(Item* item);
+
+	void Look() const override;
 };
 
