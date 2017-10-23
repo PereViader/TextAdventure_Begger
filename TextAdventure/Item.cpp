@@ -5,7 +5,9 @@
 
 using namespace std;
 
-Item::Item(string name, string description, Item::Type itemType) : itemType(itemType), Entity(name, description, Entity::Type::Item)
+Item::Item(string name, string description, Item::Type itemType) : 
+	itemType(itemType), 
+	Entity(name, description, Entity::Type::Item)
 {
 }
 

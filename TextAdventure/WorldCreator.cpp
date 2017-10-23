@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Exit.h"
 #include "Shop.h"
+#include "ItemContainer.h"
 
 Room* CreateMainStreet();
 Room* CreateAllyWayStreet();
@@ -52,9 +53,10 @@ Room* CreateMainStreet() {
 
 Room* CreateAllyWayStreet() {
 	Street * street = new Street("Ally way", "A small allyway where I can stay to relax. There is usually nobody around here", 0.0f);
-	Food * can = new Food("can", "A can of food in preserve",5);
-	Object * backpack = new Object("backpack", "My old backpack. Very useful for storing air");
-	street->AttachChild(can);
+	ItemContainer * backpack = new ItemContainer("backpack", "My old backpack. Very useful for storing air");
+	Food * can = new Food("can", "A can of food in preserve", 5);
+	backpack->AttachChild(can);
+	Object * rubbish = new Object("rubbish", "Some random stuff");
 	street->AttachChild(backpack);
 	return street;
 }

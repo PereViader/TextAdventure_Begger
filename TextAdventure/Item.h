@@ -9,6 +9,7 @@ public:
 	enum class Type {
 		Food,
 		Object,
+		ItemContainer,
 	};
 
 	Item::Type GetItemType() const;
