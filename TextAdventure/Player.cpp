@@ -14,6 +14,7 @@
 #include "Entity.h"
 #include "Time.h"
 #include "Street.h"
+#include "ItemContainer.h"
 
 #include <stdlib.h>
 
@@ -82,6 +83,9 @@ Frame_Return Player::Update() {
 		break;
 	case PlayerAction::Type::Money:
 		ActionMoney(playerAction);
+		break;
+	case PlayerAction::Type::Open:
+		ActionOpen(playerAction);
 		break;
 	case PlayerAction::Type::Error:
 	default:
@@ -345,5 +349,35 @@ void Player::ActionMoney(const PlayerAction * playerAction)
 			cout << "I don't have any money" << endl;
 		else
 			cout << "I have " << money << " coins" << endl;
+	}
+}
+
+void Player::ActionOpen(const PlayerAction * playerAction)
+{
+	if (playerAction->GetActionParameters().size() == 0) {
+		cout << "What should I open?" << endl;
+	}
+	else {
+		string itemName = playerAction->GetActionParametersAsString();
+		Item* item = (Item*)Find(itemName, Entity::Type::Item);
+		if (item == nullptr) {
+			cout << "I don't have anything like that" << endl;
+		}
+		else if (item->GetItemType() != Item::Type::ItemContainer) {
+			cout << "I can't open that" << endl;
+		}
+		else {
+			ItemContainer * itemContainer = (ItemContainer*)item;
+			vector<Item*> itemsInside = itemContainer->GetItemsInside();
+			if (itemsInside.size() == 0) {
+				cout << "It's empty" << endl;
+			}
+			else {
+				for (Item* i : itemsInside) {
+					AttachChild(i);
+					cout << "You found: " << i->GetName() << endl;
+				}
+			}
+		}
 	}
 }

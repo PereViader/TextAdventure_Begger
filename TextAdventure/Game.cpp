@@ -58,5 +58,3 @@ void Game::PrintStartingMessage() const {
 	cout << "Survive" << endl;
 	cout << endl;
 }
-
-

@@ -43,6 +43,9 @@ const PlayerAction* PlayerActionFabric::GeneratePlayerAction(const vector<string
 	else if (verb == "money") {
 		playerAction = new PlayerAction(PlayerAction::Type::Money, parameters);
 	}
+	else if (verb == "open") {
+		playerAction = new PlayerAction(PlayerAction::Type::Open, parameters);
+	}
 	else {
 		playerAction = new PlayerAction(PlayerAction::Type::Error);
 	}
