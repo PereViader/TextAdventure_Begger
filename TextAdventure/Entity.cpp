@@ -143,6 +143,9 @@ void Entity::DeattachChild(Entity* entity) {
 
 void Entity::AttachChild(Entity* entity) {
 	if (entity != nullptr) {
+		if (entity->parentEntity != nullptr) {
+			entity->parentEntity->DeattachChild(entity);
+		}
 		entity -> parentEntity = this;
 		childEntities.push_back(entity);
 	}
