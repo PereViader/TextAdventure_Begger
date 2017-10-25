@@ -11,6 +11,13 @@ Entity::Entity(string name, string description, Entity::Type entityType) : name(
 
 Entity::~Entity()
 {
+	DeatachFromParent();
+
+	while (childEntities.size() > 0) {
+		Entity * entity = childEntities.back();
+		childEntities.pop_back();
+		delete entity;
+	}
 }
 
 void Entity::Look() const
@@ -132,6 +139,16 @@ Entity * Entity::Find(const string & name, Entity::Type entityType) const
 		}
 	}
 	return nullptr;
+}
+
+void Entity::Delete()
+{
+	isDead = true;
+}
+
+bool Entity::IsDead()
+{
+	return isDead;
 }
 
 void Entity::DeattachChild(Entity* entity) {

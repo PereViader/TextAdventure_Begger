@@ -41,6 +41,8 @@ public:
 	Entity* Find(const string&) const;
 	Entity* Find(const string&, Entity::Type) const;
 
+	void Delete();
+	bool IsDead();
 
 protected:
 	Entity(string name, string description, Entity::Type entityType);
@@ -49,7 +51,9 @@ protected:
 	const string name;
 	const string description;
 
-	Entity* parentEntity;
+	Entity* parentEntity = nullptr;
 	vector<Entity*> childEntities;
+
+	bool isDead = false;
 };
 

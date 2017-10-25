@@ -42,11 +42,16 @@ Frame_Return Game::Update() {
 	{
 		Entity* currentEntityToUpdate = entityStack.top();
 		entityStack.pop();
-		update_return = currentEntityToUpdate->Update();
-		vector<Entity*> entityChilds = currentEntityToUpdate->GetChilds();
+		if (!currentEntityToUpdate->IsDead()) {
+			update_return = currentEntityToUpdate->Update();
+			vector<Entity*> entityChilds = currentEntityToUpdate->GetChilds();
 
-		for (vector<Entity*>::reverse_iterator it = entityChilds.rbegin(); it != entityChilds.rend(); ++it) {
-			entityStack.push(*it);
+			for (vector<Entity*>::reverse_iterator it = entityChilds.rbegin(); it != entityChilds.rend(); ++it) {
+				entityStack.push(*it);
+			}
+		}
+		else {
+			delete currentEntityToUpdate;
 		}
 	}
 	return update_return;
