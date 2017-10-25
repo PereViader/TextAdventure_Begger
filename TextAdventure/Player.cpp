@@ -293,8 +293,7 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 				Food* food = (Food*)item;
 				hunger += food->GetEnergy();
 				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
-				food->DeatachFromParent();
-				delete food; 
+				food ->Delete(); 
 			}
 		}
 	}
@@ -377,6 +376,7 @@ void Player::ActionOpen(const PlayerAction * playerAction)
 					AttachChild(i);
 					cout << "You found: " << i->GetName() << endl;
 				}
+				itemContainer->Delete();
 			}
 		}
 	}

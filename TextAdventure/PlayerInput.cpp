@@ -45,7 +45,6 @@ bool PlayerInput::GatherNewInput(string& previousInput) {
 			isEndOfInput = true;
 		}
 	}
-	//TODO bug check
 	return isEndOfInput;
 }
 

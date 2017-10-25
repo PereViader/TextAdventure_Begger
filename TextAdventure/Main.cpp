@@ -5,8 +5,9 @@
 #include "Game.h"
 
 int main(void) {
-	Game game;
-	game.Execute();
+	Game * game = new Game();
+	game->Execute();
+	delete game;
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 	return 0;
 }
