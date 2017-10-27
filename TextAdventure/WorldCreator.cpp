@@ -64,7 +64,7 @@ Room* CreateAllyWayStreet() {
 
 Room* CreateHiddenShop() {
 	Shop* shop = new Shop("HiddenShop", "A place for us tu buy");
-	Item* smallCan = new Food("small can", "Something to eat of unknown procedence", 5);
-	shop->AddItem(smallCan, 3);
+	Item* smallCanPrototype = new Food("small can", "Something to eat of unknown procedence", 5);
+	shop->AddAsSellableItemPropotype(smallCanPrototype, 3);
 	return shop;
 }
