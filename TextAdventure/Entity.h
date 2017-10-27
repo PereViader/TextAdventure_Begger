@@ -46,6 +46,7 @@ public:
 
 protected:
 	Entity(string name, string description, Entity::Type entityType);
+	Entity(const Entity&);
 
 	const Entity::Type entityType;
 	const string name;

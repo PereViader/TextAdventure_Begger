@@ -9,6 +9,19 @@ Entity::Entity(string name, string description, Entity::Type entityType) : name(
 {
 }
 
+Entity::Entity(const Entity & other) :
+	entityType(other.entityType),
+	name(other.name),
+	description(other.description),
+	parentEntity(nullptr),
+	isDead(other.isDead)
+{
+	for (Entity * entity : other.childEntities) {
+		Entity * childEntity = new Entity(*entity);
+		AttachChild(childEntity);
+	}
+}
+
 Entity::~Entity()
 {
 	DeatachFromParent();
