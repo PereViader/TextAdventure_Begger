@@ -3,6 +3,8 @@
 #include "Room.h"
 
 #include <map>
+#include <list>
+#include "Timer.h"
 
 class Item;
 
@@ -15,12 +17,22 @@ public:
 	Shop(string name, string description);
 	virtual ~Shop();
 
-	void AddItem(Item*, const int& price);
-	bool SellItemToPlayer(Player*, Item*);
+	void AddAsSellableItemPropotype(Item*, const unsigned int price);
 
-	bool GetPriceForItem(const Item *, int&) const;
+	void AddItemToShop(Item*, const unsigned int price);
+	bool SellItemToPlayer(Player*, Item*);
+	bool GetPriceForItem(const Item *, unsigned int & price) const;
+
+	Frame_Return Update() override;
 
 private:
+	bool IsFull() const;
+	void RestockShop();
+
+	list<Item*> sellableItemPropotypes;
+	map<Item*, int> sellableItemPropotypesPrice;
 	map<const Item*, int> itemCost;
+
+	Timer timer;
 };
 
