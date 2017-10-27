@@ -12,5 +12,8 @@ public:
 
 private:
 	unsigned int energy;
+
+	// Inherited via Item
+	virtual Item * Clone() const override;
 };
 

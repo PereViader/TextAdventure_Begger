@@ -8,3 +8,8 @@ Object::Object(string name, string description) : Item(name, description, Item::
 Object::~Object()
 {
 }
+
+Item * Object::Clone() const
+{
+	return new Object(*this);
+}

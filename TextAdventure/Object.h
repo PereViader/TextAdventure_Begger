@@ -13,5 +13,8 @@ class Object :
 public:
 	Object(string name, string description);
 	~Object();
+
+	// Inherited via Item
+	virtual Item * Clone() const override;
 };
 

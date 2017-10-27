@@ -41,3 +41,8 @@ void ItemContainer::Look() const
 		cout << item->GetDescription() << endl;
 	}
 }
+
+Item * ItemContainer::Clone() const
+{
+	return new ItemContainer(*this);
+}

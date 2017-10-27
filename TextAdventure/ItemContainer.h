@@ -16,5 +16,8 @@ public:
 	void AddItem(Item* item);
 
 	void Look() const override;
+
+	// Inherited via Item
+	virtual Item * Clone() const override;
 };
 

@@ -10,3 +10,8 @@ unsigned int Food::GetEnergy() const
 {
 	return energy;
 }
+
+Item * Food::Clone() const
+{
+	return new Food(*this);
+}
