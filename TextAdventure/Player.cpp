@@ -27,7 +27,7 @@ using namespace std;
 Player::Player(string name, string description, Room* startingRoom) :
 	hunger(100),
 	money(0),
-	hungerConsumptionPerSecond(0.1f),
+	hungerConsumptionPerSecond(0.2f),
 	playerInput(new PlayerInput()), 
 	Creature(name, description, startingRoom, Creature::Type::Player)
 {
@@ -140,6 +140,9 @@ void Player::ActionBeg(const PlayerAction* playerAction) {
 		else {
 			cout << "They ignored you" << endl;
 		}
+	}
+	else {
+		cout << "I can't do that here" << endl;
 	}
 	
 }
@@ -291,9 +294,10 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 			}
 			else {
 				Food* food = (Food*)item;
-				hunger += food->GetEnergy();
+				int resultingHunger = hunger + food->GetEnergy();
+				hunger = resultingHunger <= 100 ? resultingHunger : 100;
 				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
-				food ->Delete(); 
+				food ->Delete();
 			}
 		}
 	}
