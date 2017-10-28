@@ -25,6 +25,8 @@ Shop::Shop(string name, string description) :
 
 Shop::~Shop()
 {
+	for (Item* item : sellableItemPropotypes)
+		delete item;
 }
 
 void Shop::AddAsSellableItemPropotype(Item * item, const unsigned int price)
