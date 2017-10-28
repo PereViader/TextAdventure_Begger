@@ -33,5 +33,5 @@ bool Timer::IsTriggered()
 
 clock_t Timer::CalculateTriggerTime(clock_t currentTime, float activationDelay) const
 {
-	return currentTime + CLOCKS_PER_SEC * activationDelay;
+	return currentTime + (clock_t)(CLOCKS_PER_SEC * activationDelay);
 }

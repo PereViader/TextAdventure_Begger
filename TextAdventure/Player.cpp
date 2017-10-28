@@ -294,8 +294,8 @@ void Player::ActionEat(const PlayerAction* playerAction) {
 			}
 			else {
 				Food* food = (Food*)item;
-				int resultingHunger = hunger + food->GetEnergy();
-				hunger = resultingHunger <= 100 ? resultingHunger : 100;
+				float resultingHunger = hunger + food->GetEnergy();
+				hunger = resultingHunger <= 100.0f ? resultingHunger : 100.0f;
 				cout << "You ate a " << food->GetName() << " that gave you " << food->GetEnergy() << " energy" << endl;
 				food ->Delete();
 			}
