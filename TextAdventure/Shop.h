@@ -22,7 +22,8 @@ public:
 	bool SellItemToPlayer(Player*, Item*);
 	bool GetPriceForItem(const Item *, unsigned int & price) const;
 
-	Frame_Return Update() override;
+	virtual Frame_Return Update() override;
+	virtual void Look() const override;
 
 private:
 	void AddItemPrototypeToShop(Item*);
