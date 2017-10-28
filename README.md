@@ -1,6 +1,6 @@
 # TextAdventure_Begger
 
-List of aviable commands:
+## List of aviable commands
 
 - look <item_name>? 		: looks at the current room or at the specified item in the current room
 - inventory <item_name>? 	: looks at the players inventory or at the specified item in the player inventory
@@ -13,3 +13,7 @@ List of aviable commands:
 - go [north|south|east|west]: go to the specified direction
 - open <itemContainer_name> : open an item container from your inventory
 - exit | quit				: shut down the game
+
+## Game Map
+
+![map](https://user-images.githubusercontent.com/32639021/32135083-506a1c80-bbf9-11e7-88c8-12e6a5b39edc.png)
