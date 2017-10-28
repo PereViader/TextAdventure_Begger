@@ -29,16 +29,18 @@ void Shop::AddAsSellableItemPropotype(Item * item, const unsigned int price)
 {
 	assert(item);
 	assert(std::find(sellableItemPropotypes.begin(), sellableItemPropotypes.end(), item) == sellableItemPropotypes.end());
+	assert(sellableItemPropotypesPrice.find(item->GetName() == sellableItemPropotypesPrice.cend()));
+
 	sellableItemPropotypes.push_back(item);
-	sellableItemPropotypesPrice[item] = price;
+	sellableItemPropotypesPrice[item->GetName()] = price;
 }
 
 
 
-void Shop::AddItemToShop(Item* item, const unsigned int price) {
-	assert(item);
-	item->AttachToParent(this);
-	itemCost[item] = price;
+void Shop::AddItemPrototypeToShop(Item* itemPrototype) {
+	assert(itemPrototype);
+	Item* itemToSell = itemPrototype->Clone();
+	AttachChild(itemToSell);
 }
 
 
@@ -51,25 +53,29 @@ Pre: The shop is the owner of the item.
 bool Shop::SellItemToPlayer(Player* player, Item* item) {
 	assert(player);
 	assert(item);
-	bool itemWasBought = false;
+	bool playerGotTheItem = false;
 	unsigned int itemPrice;
-	bool shopHasItem = GetPriceForItem(item, itemPrice);
+	bool shopHasPriceForItem = GetPriceForItem(item, itemPrice);
 	assert(shopHasItem);
-	if (shopHasItem) {
+	if (shopHasPriceForItem) {
 		if (player->RemoveMoney(itemPrice)) {
-			itemWasBought = true;
+			playerGotTheItem = true;
 			item->AttachToParent(player);
-			itemCost.erase(item);
 		}
 	}
-	return itemWasBought;
+	else {
+		cout << "Shop: This is not our's, you can take it" << endl;
+		item->AttachToParent(player);
+		playerGotTheItem = true;
+	}
+	return playerGotTheItem;
 }
 
 bool Shop::GetPriceForItem(const Item* item, unsigned int & price) const
 {
 	assert(item);
-	map <const Item*, int>::const_iterator it = itemCost.find(item);
-	bool hasItem = it != itemCost.cend();
+	map <string, unsigned int>::const_iterator it = sellableItemPropotypesPrice.find(item->GetName());
+	bool hasItem = it != sellableItemPropotypesPrice.cend();
 	if (hasItem) {
 		price = it->second;
 	}
@@ -95,13 +101,16 @@ bool Shop::IsFull() const
 void Shop::RestockShop()
 {
 	if (sellableItemPropotypes.size() > 0) {
-		Item* sellableItemPrototype = sellableItemPropotypes.front();
-		unsigned int price = sellableItemPropotypesPrice[sellableItemPrototype];
-		cout << "Added item to shop " << sellableItemPrototype->GetName() << endl;
-		Item* itemToSell = sellableItemPrototype->Clone();
-		AddItemToShop(itemToSell, price);
-
-		sellableItemPropotypes.pop_front();
-		sellableItemPropotypes.push_back(sellableItemPrototype);
+		Item* sellableItemPrototype = GetNextItemToRestock();
+		AddItemPrototypeToShop(sellableItemPrototype);
 	}
+}
+
+Item * Shop::GetNextItemToRestock()
+{
+	assert(sellableItemPropotypes.size() > 0);
+	Item* nextItemToRestock = sellableItemPropotypes.front();
+	sellableItemPropotypes.pop_front();
+	sellableItemPropotypes.push_back(nextItemToRestock);
+	return nextItemToRestock;
 }

@@ -19,19 +19,23 @@ public:
 
 	void AddAsSellableItemPropotype(Item*, const unsigned int price);
 
-	void AddItemToShop(Item*, const unsigned int price);
 	bool SellItemToPlayer(Player*, Item*);
 	bool GetPriceForItem(const Item *, unsigned int & price) const;
 
 	Frame_Return Update() override;
 
 private:
+	void AddItemPrototypeToShop(Item*);
+
+
+private:
 	bool IsFull() const;
 	void RestockShop();
+	Item* GetNextItemToRestock();
+
 
 	list<Item*> sellableItemPropotypes;
-	map<Item*, int> sellableItemPropotypesPrice;
-	map<const Item*, int> itemCost;
+	map<string, unsigned int> sellableItemPropotypesPrice;
 
 	Timer timer;
 };
