@@ -11,35 +11,41 @@
 
 Room* CreateMainStreet();
 Room* CreateAllyWayStreet();
-Room* CreateHiddenShop();
+Room* CreateUnderground();
+Room* CreateShop();
 
 
 
 World* WorldCreator::CreateGameWorld()
 {
 	World* world = new World("earth", "where all the humans live");
+	
 	Room* mainStreet = CreateMainStreet();
-	Player * player = new Player("Player", "Lonely person", mainStreet);
-
 	Room* allyWayStreet = CreateAllyWayStreet();
-	Room* hiddenShop = CreateHiddenShop();
+	Room* shop = CreateShop();
+	Room* underground = CreateUnderground();
+	world->AttachChild(mainStreet);
+	world->AttachChild(allyWayStreet);
+	world->AttachChild(shop);
+	world->AttachChild(underground);
 
 	Exit* mainStreetNorthExit = new Exit("Northen way", "The way north", Exit::Direction::North, mainStreet, allyWayStreet);
 	Exit* allyWaySouthExit = new Exit("Southern way", "The way south", Exit::Direction::South, allyWayStreet, mainStreet);
-	
-	Exit* allyWayEastExit = new Exit("Eastern way", "There's something this way", Exit::Direction::East, allyWayStreet, hiddenShop);
-	Exit* hiddenShopWestExit = new Exit("Western exit", "The way back to the street", Exit::Direction::West, hiddenShop, allyWayStreet);
-
 	mainStreetNorthExit->AttachToParent(mainStreet);
 	allyWaySouthExit->AttachToParent(allyWayStreet);
 
-	allyWayEastExit->AttachToParent(allyWayStreet);
-	hiddenShopWestExit->AttachToParent(hiddenShop);
+	Exit* mainStreetEastExit = new Exit("Eastern way", "There is a shop this way", Exit::Direction::East, mainStreet, shop);
+	Exit* shopWestExit = new Exit("Western exit", "The way back to the street", Exit::Direction::West, shop, mainStreet);
+	mainStreetEastExit->AttachToParent(mainStreet);
+	shopWestExit->AttachToParent(shop);
 
+	Exit* mainStreetWestExit = new Exit("Western way", "The underground entrance", Exit::Direction::West, mainStreet, underground);
+	Exit* undergroundNorthExit = new Exit("Northen way", "The underground entrance", Exit::Direction::North, underground, mainStreet);
+	mainStreetWestExit->AttachToParent(mainStreet);
+	undergroundNorthExit->AttachToParent(underground);
 
-	world->AttachChild(mainStreet);
-	world->AttachChild(allyWayStreet);
-	world->AttachChild(hiddenShop);
+	Player * player = new Player("Player", "Lonely person");
+	player->AttachToParent(allyWayStreet);
 
 	return world;
 }
@@ -62,9 +68,22 @@ Room* CreateAllyWayStreet() {
 	return street;
 }
 
-Room* CreateHiddenShop() {
-	Shop* shop = new Shop("HiddenShop", "A place for us tu buy");
+Room * CreateUnderground()
+{
+	Street * underground = new Street("Underground", "It's hot and full of people", 0.3f);
+	Object * oldTicket = new Object("old ticket", "An old and dusty ticket on the corner");
+	Food * energyDrink = new Food("cola", "A half full cola tin", 3);
+	underground->AttachChild(oldTicket);
+	underground->AttachChild(energyDrink);
+	return underground;
+}
+
+Room* CreateShop() {
+	Shop* shop = new Shop("Shop", "A place for us tu buy");
 	Item* smallCanPrototype = new Food("small can", "Something to eat of unknown procedence", 5);
+	Item* betterCanPrototype = new Food("better can", "Looks nice and must taste nicer", 11);
 	shop->AddAsSellableItemPropotype(smallCanPrototype, 3);
+	shop->AddAsSellableItemPropotype(betterCanPrototype, 6);
+
 	return shop;
 }

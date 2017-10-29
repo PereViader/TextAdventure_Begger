@@ -8,12 +8,10 @@ const Creature::Type Creature::GetCreatureType() const
 	return creatureType;
 }
 
-Creature::Creature(string name, string description, Room* startingRoom, Creature::Type creatureType) : 
+Creature::Creature(string name, string description, Creature::Type creatureType) : 
 	creatureType(creatureType), 
 	Entity(name, description,Entity::Type::Creature)
 {
-	assert(startingRoom);
-	AttachToParent(startingRoom);
 }
 
 Room * Creature::GetCurrentRoom() const

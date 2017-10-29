@@ -24,12 +24,12 @@
 
 using namespace std;
 
-Player::Player(string name, string description, Room* startingRoom) :
+Player::Player(string name, string description) :
 	hunger(100),
 	money(0),
 	hungerConsumptionPerSecond(0.2f),
 	playerInput(new PlayerInput()), 
-	Creature(name, description, startingRoom, Creature::Type::Player)
+	Creature(name, description, Creature::Type::Player)
 {
 	srand(6); // set seed for debugging purposes
 }

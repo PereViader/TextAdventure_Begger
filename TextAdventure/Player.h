@@ -12,7 +12,7 @@ class Player :
 	public Creature
 {
 public:
-	Player(string name, string description, Room* startingRoom);
+	Player(string name, string description);
 	~Player();
 	
 	unsigned int GetMoney();
